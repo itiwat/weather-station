@@ -139,7 +139,7 @@ void drawUi() {
   tft.setCursor (230, 165);
   tft.setTextSize (1);
   tft.setTextColor (WHITE, BLACK);
-  tft.print ("WATER   SPRAY");
+  tft.print ("ZONE1   ZONE2");
 }
 
 void displayButtonSet() {
@@ -157,7 +157,7 @@ void displayButtonSet() {
 
   tft.setCursor (230, 180);
   tft.setTextSize (2);
-  if (waterValveStatus == 1) {
+  if (zone1ValveStatus == 1) {
     tft.setTextColor (GREEN, BLACK);
     tft.print ("ON  ");
   } else {
@@ -165,7 +165,7 @@ void displayButtonSet() {
     tft.print ("OFF ");
   }
 
-  if (sprayValveStatus == 1) {
+  if (zone2ValveStatus == 1) {
     tft.setTextColor (GREEN, BLACK);
     tft.print ("ON ");
   } else {
@@ -178,13 +178,13 @@ void displayButtonSet() {
     tft.setTextSize (1);
     tft.setTextColor (WHITE, BLACK);
     tft.print ("AUTO : ");
-    if ((sprayAutoTimerWork == 1) && (waterAutoTimerWork == 1)) {
+    if ((zone2AutoTimerWork == 1) && (zone1AutoTimerWork == 1)) {
       tft.setTextColor(GREEN, BLACK);
       tft.print ("W/S ");
-    } else if ((sprayAutoTimerWork == 1) && (waterAutoTimerWork == 0)) {
+    } else if ((zone2AutoTimerWork == 1) && (zone1AutoTimerWork == 0)) {
       tft.setTextColor(GREEN, BLACK);
       tft.print ("-/W ");
-    } else if ((sprayAutoTimerWork == 0) && (waterAutoTimerWork == 1)) {
+    } else if ((zone2AutoTimerWork == 0) && (zone1AutoTimerWork == 1)) {
       tft.setTextColor(GREEN, BLACK);
       tft.print ("W/- ");
     } else {
@@ -225,7 +225,7 @@ void displayDataSet() {
   tft.setCursor(70, 145);
   tft.setTextSize(1);
   tft.setTextColor (WHITE, BLACK);
-  tft.print("WATER : ");
+  tft.print("ZONE1 : ");
   tft.setTextColor(BLUE, BLACK);
   tft.print(autoWaterSprayDurationSet);
   tft.setTextColor (WHITE, BLACK);
@@ -366,13 +366,13 @@ void displayClock() {
       getTime();
     }
 
-    if (waterValveStatus == 1) {
+    if (zone1ValveStatus == 1) {
       digitalWrite(waterLed, dots);
     } else {
       digitalWrite(waterLed, LOW);
     }
 
-    if (sprayValveStatus == 1) {
+    if (zone2ValveStatus == 1) {
       digitalWrite(sprayLed, dots);
     } else {
       digitalWrite(sprayLed, LOW);
@@ -393,6 +393,7 @@ void displayClock() {
 
 void displayWifi() {
   int wifiDisplay = WifiPercentSignal();
+  Blynk.virtualWrite(Widget_WifiDisplay,wifiDisplay);
   tft.setCursor(35, 5);
   tft.setTextColor(BLUE, BLACK);
   tft.setTextSize(1);
@@ -410,17 +411,17 @@ int WifiPercentSignal() {
 }
 
 void checkDisplayButtonSet() {
-  if ((lastMode != modeSelect) || (lastWater != waterValveStatus) ||
-      (lastSpray != sprayValveStatus) || (lastRainDelay != rainDelayWork) ||
-      (lastAutoWater != waterAutoTimerWork) || (lastAutoSpray != sprayAutoTimerWork)) {
+  if ((lastMode != modeSelect) || (lastZone1 != zone1ValveStatus) ||
+      (lastZone2 != zone2ValveStatus) || (lastRainDelay != rainDelayWork) ||
+      (lastAutoZone1 != zone1AutoTimerWork) || (lastAutoZone2 != zone2AutoTimerWork)) {
 
     displayButtonSet();
     lastMode = modeSelect;
-    lastWater = waterValveStatus;
-    lastSpray = sprayValveStatus;
+    lastZone1 = zone1ValveStatus;
+    lastZone2 = zone2ValveStatus;
     lastRainDelay = rainDelayWork;
-    lastAutoWater = waterAutoTimerWork;
-    lastAutoSpray = sprayAutoTimerWork;
+    lastAutoZone1 = zone1AutoTimerWork;
+    lastAutoZone2 = zone2AutoTimerWork;
   }
 }
 

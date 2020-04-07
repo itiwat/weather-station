@@ -1,20 +1,25 @@
 #define BLYNK_PRINT Serial
-#include <TridentTD_LineNotify.h>
 #include <BlynkSimpleEsp32.h>
 #include <Adafruit_ILI9341.h>
-#include <FirebaseESP32.h>
+//#include <FirebaseESP32.h>
 #include <Adafruit_GFX.h>
-#include <PubSubClient.h>
-#include <ArduinoJson.h>
-#include <HTTPClient.h>
+//#include <PubSubClient.h>
+//#include <ArduinoJson.h>
+//#include <HTTPClient.h>
 #include <WidgetRTC.h>
 #include <EEPROM.h>
-#include <LoRa.h>
 #include <SPI.h>
+#include <BLEDevice.h>
 #include "config.h"
 #include "helper.h"
 
-int modeSelect = 1;
+/*xoxo
+   Note 
+      Water=Zone1
+      Spray=Zone2
+oxox*/
+
+int modeSelect;   //1:Manual  2:Auto  3:Timer
 int sensorRoundSet = 15;
 int temperatureSet = 32;
 int moistureSet = 80;
@@ -25,7 +30,6 @@ bool sensorRoundStatus = 1;
 uint32_t longPressTime = 500;
 String timeStamp = "wait";
 String todaySchedule = "wait";
-String baseTopic = "espcalendar/";
 
 char *Day[] = {" ", "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
 char Date[16];
@@ -33,64 +37,80 @@ char Time[16];
 
 float temperatureData, batteryData;
 
+int manual_Switch, auto_Switch, oldModeButtonState;
+
 int moistureData, fertilityData, lightData, tesmod, reading, firstState, lightSetWrite, lastMode,
     timerNumber, CurrentWifiSignal, WifiSignal, firstDisplay, msgCount, timer1Work, timer2Work,
     timer3Work, timer4Work, timer5Work, timer6Work, timer7Work, timer8Work, mqttConnectCount, 
     connectCount;
 
-bool waterValveStatus, sprayValveStatus, waterAutoTimerWork, sprayAutoTimerWork, waterAutoTimerStatus,
-     sprayAutoTimerStatus, rainStatus, sensorStatus, rainDelayWork, lastWaterValveStatus, lastSprayValveStatus;
+bool sensorStatus;
+bool rainStatus, rainDelayWork, lastRainDelay;
+bool buttonActive, longPressActive, dots, firstLoop, firstRecieve, mqttUpdate;
 
-bool buttonActive, longPressActive, oldModeButtonState, dataModeButton, dots, lastWater, lastSpray,
-     lastAutoWater, lastAutoSpray, lastRainDelay, firstLoop, firstRecieve, mqttUpdate;
+/*xoxo
+bool waterValveStatus, waterAutoTimerWork, waterAutoTimerStatus, lastWaterValveStatus, lastWater, lastAutoWater;
+bool sprayValveStatus, sprayAutoTimerWork, sprayAutoTimerStatus, lastSprayValveStatus, lastSpray, lastAutoSpray;
+oxox*/
 
-bool timer1WaterStatus, timer1SprayStatus, timer2WaterStatus, timer2SprayStatus, timer3WaterStatus,
-     timer3SprayStatus, timer4WaterStatus, timer4SprayStatus, timer5WaterStatus, timer5SprayStatus,
-     timer6WaterStatus, timer6SprayStatus, timer7WaterStatus, timer7SprayStatus, timer8WaterStatus,
-     timer8SprayStatus, timer1On, timer2On, timer3On, timer4On, timer5On, timer6On, timer7On, 
-     timer8On;
+bool zone1ValveStatus, zone2ValveStatus, zone3ValveStatus, zone4ValveStatus;
+bool zone1AutoTimerWork, zone2AutoTimerWork, zone3AutoTimerWork, zone4AutoTimerWork;
+bool zone1AutoTimerStatus, zone2AutoTimerStatus, zone3AutoTimerStatus, zone4AutoTimerStatus;
+bool lastZone1ValveStatus, lastZone2ValveStatus, lastZone3ValveStatus, lastZone4ValveStatus;
+bool lastZone1, lastZone2, lastZone3, lastZone4;
+bool lastAutoZone1, lastAutoZone2, lastAutoZone3, lastAutoZone4;
+
+bool timer1Zone1Status, timer1Zone2Status;
+bool timer2Zone1Status, timer2Zone2Status;
+bool timer3Zone1Status, timer3Zone2Status;
+bool timer4Zone1Status, timer4Zone2Status;
+bool timer5Zone1Status, timer5Zone2Status;
+bool timer6Zone1Status, timer6Zone2Status;
+bool timer7Zone1Status, timer7Zone2Status;
+bool timer8Zone1Status, timer8Zone2Status;
+bool timer1On, timer2On, timer3On, timer4On, timer5On, timer6On, timer7On, timer8On;
 
 uint32_t startsecondswd, stopsecondswd, nowseconds, buttonTimer, autoMillis, currentMillis,
          newMillis, sensorRoundMillis, mqttMillis, runTime;
 
 String  weatherMain, weatherDescription, weatherCity, displayTime, displayHour, displayMinute,
-        lineNotifyMessage, lineSender, lineMessage, lineDataSet, displayDayOfMonth, displayMonth,
-        displayYear, outgoing, incoming;
+        displayDayOfMonth, displayMonth, displayYear, outgoing, incoming;
 
 BlynkTimer timer;
 WidgetRTC rtc;
 
 WidgetTerminal terminal(Widget_TerminalBug);
-WidgetLED waterBlynkLed(Widget_WaterLed);
-WidgetLED sprayBlynkLed(Widget_SprayLed);
+WidgetLED zone1BlynkLed(Widget_Zone1Led);
+WidgetLED zone2BlynkLed(Widget_Zone2Led);
+WidgetLED zone3BlynkLed(Widget_Zone3Led);
+WidgetLED zone4BlynkLed(Widget_Zone4Led);
 WidgetLED rainBlynkLed(Widget_RainDelayLed);
 
-#ifdef CALENDAR
-WiFiClient espClient;
-PubSubClient client(espClient);
-#endif
-#ifdef FIREBASE
-FirebaseData firebaseData;
-#endif
 
 //**************************************************************************************************//
 //*********************************************SETUP************************************************//
 
 void setup() {
-  pinMode(waterValve, OUTPUT); digitalWrite(waterValve, HIGH);
-  pinMode(sprayValve, OUTPUT); digitalWrite(sprayValve, HIGH);
-  pinMode(valve3, OUTPUT); digitalWrite(valve3, HIGH);
-  pinMode(valve4, OUTPUT); digitalWrite(valve4, HIGH);
+  pinMode(manualSwitch, INPUT_PULLUP);
+  pinMode(autoSwitch, INPUT_PULLUP);
+  pinMode(zone1Valve, OUTPUT); digitalWrite(zone1Valve, LOW);
+  pinMode(zone2Valve, OUTPUT); digitalWrite(zone2Valve, LOW);
+  pinMode(zone3Valve, OUTPUT); digitalWrite(zone2Valve, LOW);
+  pinMode(zone4Valve, OUTPUT); digitalWrite(zone2Valve, LOW);
+  /*xoxopinMode(valve3, OUTPUT); digitalWrite(valve3, HIGH);
+  pinMode(valve4, OUTPUT); digitalWrite(valve4, HIGH);oxox*/
   pinMode(waterLed, OUTPUT); digitalWrite(waterLed, LOW);
   pinMode(sprayLed, OUTPUT); digitalWrite(sprayLed, LOW);
 
 #ifdef PHYBUTTON
+  pinMode(zone1Button, INPUT_PULLUP);
+  pinMode(zone2Button, INPUT_PULLUP);
+  pinMode(zone3Button, INPUT_PULLUP);
+  pinMode(zone4Button, INPUT_PULLUP);
+//xoxo  
   pinMode(manualButton, INPUT_PULLUP);
-  pinMode(modeButton, INPUT_PULLUP);
-#endif
-#ifdef LINENOTIFY
-  Serial.println(LINE.getVersion());
-  LINE.setToken(LINE_TOKEN);
+//  pinMode(modeButton, INPUT_PULLUP);
+//oxox
 #endif
 
   Serial.begin(115200);
@@ -107,21 +127,13 @@ void setup() {
   timer.setInterval(10000L, activeToday);
   timer.setInterval(10000L, writeEeprom);
   timer.setInterval(10000L, updateBlynk);
-
-#ifdef ILI9341
+#ifdef ILI9341  
   timer.setInterval(10000L, displayWifi);
-#endif
-
-  initLora();
+#endif  
 
 //FreeRTOS
-  xTaskCreate(&blynkConnectTask, "blynkConnect", 3000, NULL, 10, NULL);
   xTaskCreate(&wifiConnectTask, "wifiConnect", 3000, NULL, 10, NULL);
-
-#ifdef CALENDAR
-  client.setServer(mqttServer, mqttPort);
-  client.setCallback(callback);
-#endif
+  xTaskCreate(&blynkConnectTask, "blynkConnect", 3000, NULL, 10, NULL);
 }
 
 //**************************************************************************************************//
@@ -137,7 +149,7 @@ void loop() {
   }
 
   timer.run();
-  onReceive(LoRa.parsePacket());
+ 
   checkDefine();
   checkDebug();
 }
@@ -183,8 +195,8 @@ void checkFunction() {
 
 void checkDefine() {
 #ifdef PHYBUTTON
-  manualButtonCheck();
   modeButtonCheck();
+  if ( modeSelect == 1 ) { manualButtonCheck(); } //Only Maunal mode allow to control button
 #endif
 
 #ifdef ILI9341
@@ -192,63 +204,66 @@ void checkDefine() {
   displayClock();
 #endif
 
-#ifdef CALENDAR
-  if (mqttUpdate == 0) {
-    mqttConnect();
-  }
-
-  if (((currentMillis - mqttMillis) > 300000) && (mqttUpdate == 1)) {
-    mqttUpdate = 0;
-  }
-
-  client.loop();
-#endif
-
 }
 
 void checkValve() {
 
-  //water valve check
-  if (waterValveStatus == 1) {
-    digitalWrite(waterValve, LOW);
-    waterBlynkLed.on();
+  //zone1 valve check
+  if (zone1ValveStatus == 1) {
+    digitalWrite(zone1Valve, HIGH);
+    zone1BlynkLed.on();
   } else {
-    digitalWrite(waterValve, HIGH);
-    waterBlynkLed.off();
+    digitalWrite(zone1Valve, LOW);
+    zone1BlynkLed.off();
   }
 
-  //spray valve check
-  if (sprayValveStatus == 1) {
-    digitalWrite(sprayValve, LOW);
-    sprayBlynkLed.on();
+  //zone2 valve check
+  if (zone2ValveStatus == 1) {
+    digitalWrite(zone2Valve, HIGH);
+    zone2BlynkLed.on();
   } else {
-    digitalWrite(sprayValve, HIGH);
-    sprayBlynkLed.off();
+    digitalWrite(zone2Valve, LOW);
+    zone2BlynkLed.off();
   }
 
+  //zone3 valve check
+  if (zone3ValveStatus == 1) {
+    digitalWrite(zone3Valve, HIGH);
+    zone3BlynkLed.on();
+  } else {
+    digitalWrite(zone3Valve, LOW);
+    zone3BlynkLed.off();
+  }
+
+  //zone4 valve check
+  if (zone4ValveStatus == 1) {
+    digitalWrite(zone4Valve, HIGH);
+    zone4BlynkLed.on();
+  } else {
+    digitalWrite(zone4Valve, LOW);
+    zone4BlynkLed.off();
+  }
+
+  
 }
 
 void closeAllValve() {  //for close all valve
-  if ((waterValveStatus  == 1) || (sprayValveStatus == 1)) {
-    waterValveStatus = 0;
-    sprayValveStatus = 0;
-
-#ifdef LINENOTIFY
-    lineNotifyCloseAllValve();
-#endif
-
+  if ((zone1ValveStatus  == 1) || (zone2ValveStatus == 1)
+       || (zone3ValveStatus  == 1) || (zone4ValveStatus == 1)) {
+    zone1ValveStatus = 0;
+    zone2ValveStatus = 0;
+    zone3ValveStatus = 0;
+    zone4ValveStatus = 0;
   }
 }
 
 void openAllValve() {  //for close all valve
-  if ((waterValveStatus  == 0) || (sprayValveStatus == 0)) {
-    waterValveStatus = 1;
-    sprayValveStatus = 1;
-
-#ifdef LINENOTIFY
-    lineNotifyOpenAllValve();
-#endif
-
+  if ((zone1ValveStatus  == 0) || (zone2ValveStatus == 0)
+       || (zone3ValveStatus  == 0) || (zone4ValveStatus == 0)) {
+    zone1ValveStatus = 1;
+    zone2ValveStatus = 1;
+    zone3ValveStatus = 1;
+    zone4ValveStatus = 1;
   }
 }
 
@@ -314,8 +329,10 @@ void activeToday() {
 
     } else if (modeSelect == 2) {
 
-      if (waterAutoTimerWork == 1) Blynk.syncVirtual(Widget_WaterAutoTimerInput);
-      if (sprayAutoTimerWork == 1) Blynk.syncVirtual(Widget_SprayAutoTimerInput);
+      if (zone1AutoTimerWork == 1) Blynk.syncVirtual(Widget_Zone1AutoTimerInput);
+      if (zone2AutoTimerWork == 1) Blynk.syncVirtual(Widget_Zone2AutoTimerInput);
+      if (zone3AutoTimerWork == 1) Blynk.syncVirtual(Widget_Zone3AutoTimerInput);
+      if (zone4AutoTimerWork == 1) Blynk.syncVirtual(Widget_Zone4AutoTimerInput);
     }
   }
 

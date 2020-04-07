@@ -58,8 +58,10 @@ void writeEeprom() {
   int timer7WorkTmp = EEPROM.read(TIMER7_ADDRESS);
   int timer8WorkTmp = EEPROM.read(TIMER8_ADDRESS);
   int autoWaterSprayDurationSetTmp = EEPROM.read(AUTO_WATER_SPRAY_DURATION_SET_ADDRESS);
-  bool waterAutoTimerWorkTmp = EEPROM.read(WATER_AUTO_TIMER_ADDRESS);
-  bool sprayAutoTimerWorkTmp = EEPROM.read(SPRAY_AUTO_TIMER_ADDRESS);
+  bool zone1AutoTimerWorkTmp = EEPROM.read(ZONE1_AUTO_TIMER_ADDRESS);
+  bool zone2AutoTimerWorkTmp = EEPROM.read(ZONE2_AUTO_TIMER_ADDRESS);
+  bool zone3AutoTimerWorkTmp = EEPROM.read(ZONE3_AUTO_TIMER_ADDRESS);
+  bool zone4AutoTimerWorkTmp = EEPROM.read(ZONE4_AUTO_TIMER_ADDRESS);
   bool rainDelayWorkTmp = EEPROM.read(RAIN_DELAY_ADDRESS);
 
   if (modeSelect != modeSelectTmp) {
@@ -95,14 +97,24 @@ void writeEeprom() {
     Serial.print("eeprom write water time set : "); Serial.println(autoWaterSprayDurationSet);
   }
 
-  if (waterAutoTimerWork != waterAutoTimerWorkTmp) {
-    EEPROM.write(WATER_AUTO_TIMER_ADDRESS, waterAutoTimerWork);
-    Serial.print("eeprom write auto water timerwork : "); Serial.println(waterAutoTimerWork);
+  if (zone1AutoTimerWork != zone1AutoTimerWorkTmp) {
+    EEPROM.write(ZONE1_AUTO_TIMER_ADDRESS, zone1AutoTimerWork);
+    Serial.print("eeprom write auto zone1 timerwork : "); Serial.println(zone1AutoTimerWork);
   }
 
-  if (sprayAutoTimerWork != sprayAutoTimerWorkTmp) {
-    EEPROM.write(SPRAY_AUTO_TIMER_ADDRESS, sprayAutoTimerWork);
-    Serial.print("eeprom write auto spray timer work : "); Serial.println(sprayAutoTimerWork);
+  if (zone2AutoTimerWork != zone2AutoTimerWorkTmp) {
+    EEPROM.write(ZONE2_AUTO_TIMER_ADDRESS, zone2AutoTimerWork);
+    Serial.print("eeprom write auto zone2 timer work : "); Serial.println(zone2AutoTimerWork);
+  }
+
+  if (zone3AutoTimerWork != zone3AutoTimerWorkTmp) {
+    EEPROM.write(ZONE3_AUTO_TIMER_ADDRESS, zone3AutoTimerWork);
+    Serial.print("eeprom write auto zone3 timerwork : "); Serial.println(zone3AutoTimerWork);
+  }
+
+  if (zone4AutoTimerWork != zone4AutoTimerWorkTmp) {
+    EEPROM.write(ZONE4_AUTO_TIMER_ADDRESS, zone4AutoTimerWork);
+    Serial.print("eeprom write auto zone4 timerwork : "); Serial.println(zone4AutoTimerWork);
   }
 
   if (rainDelayWork != rainDelayWorkTmp) {
@@ -165,8 +177,10 @@ void readConfig() {
     moistureSet = EEPROM.read(MOISTURE_SET_ADDRESS);
     lightSetWrite = EEPROM.read(LIGHT_SET_ADDRESS) ;
     autoWaterSprayDurationSet = EEPROM.read(AUTO_WATER_SPRAY_DURATION_SET_ADDRESS);
-    waterAutoTimerWork = EEPROM.read(WATER_AUTO_TIMER_ADDRESS);
-    sprayAutoTimerWork = EEPROM.read(SPRAY_AUTO_TIMER_ADDRESS);
+    zone1AutoTimerWork = EEPROM.read(ZONE1_AUTO_TIMER_ADDRESS);
+    zone2AutoTimerWork = EEPROM.read(ZONE2_AUTO_TIMER_ADDRESS);
+    zone3AutoTimerWork = EEPROM.read(ZONE3_AUTO_TIMER_ADDRESS);
+    zone4AutoTimerWork = EEPROM.read(ZONE4_AUTO_TIMER_ADDRESS);
     rainDelayWork = EEPROM.read(RAIN_DELAY_ADDRESS);
     timer1Work = EEPROM.read(TIMER1_ADDRESS);
     timer2Work = EEPROM.read(TIMER2_ADDRESS);
@@ -185,7 +199,10 @@ void readConfig() {
     EEPROM.write(MOISTURE_SET_ADDRESS, 50);
     EEPROM.write(LIGHT_SET_ADDRESS, 20);
     EEPROM.write(AUTO_WATER_SPRAY_DURATION_SET_ADDRESS, 1);
-    EEPROM.write(WATER_AUTO_TIMER_ADDRESS, 1);
+    EEPROM.write(ZONE1_AUTO_TIMER_ADDRESS, 1);
+    EEPROM.write(ZONE2_AUTO_TIMER_ADDRESS, 1);
+    EEPROM.write(ZONE3_AUTO_TIMER_ADDRESS, 1);
+    EEPROM.write(ZONE4_AUTO_TIMER_ADDRESS, 1);
     EEPROM.write(AUTO_WATER_SPRAY_DURATION_SET_ADDRESS, 1);
     EEPROM.write(RAIN_DELAY_ADDRESS, 0);
     EEPROM.write(TIMER1_ADDRESS, 0);
@@ -222,8 +239,10 @@ void forceStopAllTimer() {
 }
 
 void forceStopAllValve() {
-  waterValveStatus = 0;
-  sprayValveStatus = 0;
+  zone1ValveStatus = 0;
+  zone2ValveStatus = 0;
+  zone3ValveStatus = 0;
+  zone4ValveStatus = 0;
 }
 
 void resetSensor() {
@@ -237,8 +256,26 @@ void resetSensor() {
 
 #ifdef PHYBUTTON
 void modeButtonCheck() {
-  dataModeButton = digitalRead(modeButton);
-  if ((dataModeButton == 0) && (oldModeButtonState == 1)) {
+  int Mode;
+ 
+    if (digitalRead(manualSwitch) == LOW ) { Mode = 1; }
+    else if (digitalRead(autoSwitch) == LOW ){ Mode = 2; }
+    else { Mode = 3; }
+    
+    // It have change Mode
+    if ( Mode != oldModeButtonState){
+      delay(10);
+      forceStopAllTimer();
+      closeAllValve();
+      resetTerminal();
+      modeSelect = Mode;
+      modeLabel();
+      if ( Mode == 1 ) { Serial.println("Change mode to : Manual"); }
+      else if ( Mode == 2 ) { Serial.println("Change mode to : Auto"); }
+      else if ( Mode == 3 ) { Serial.println("Change mode to : Timer"); }
+    }
+    oldModeButtonState = Mode;
+/*xoxo  if ((dataModeButton == 0) && (oldModeButtonState == 1)) {
     delay(10);
     if (digitalRead(modeButton) == 0) {
       forceStopAllTimer();
@@ -251,9 +288,103 @@ void modeButtonCheck() {
     }
   }
   oldModeButtonState = dataModeButton;
+oxox*/
 }
 
 void manualButtonCheck() {
+  if ((digitalRead(zone1Button) == LOW) || (digitalRead(zone2Button) == LOW)
+      || (digitalRead(zone3Button) == LOW) || (digitalRead(zone4Button) == LOW)) {
+        
+        Serial.print("zone1Button : ");
+        Serial.println(digitalRead(zone1Button));
+        Serial.print("zone2Button : ");
+        Serial.println(digitalRead(zone2Button));
+        Serial.print("zone3Button : ");
+        Serial.println(digitalRead(zone3Button));
+        Serial.print("zone4Button : ");
+        Serial.println(digitalRead(zone4Button));
+        
+    if (buttonActive == 0) {
+      buttonActive = 1;
+      buttonTimer = millis();
+    }
+    if ((millis() - buttonTimer > longPressTime) && (longPressActive == 0)) { longPressActive = 1; return; } //Hold Button do nothings
+    else {
+          if (buttonActive == 1) {
+              if (longPressActive == 1) { longPressActive = 0; } 
+              else if (digitalRead(zone1Button) == LOW) {  
+                        forceStopAllTimer();
+                        resetTerminal();
+                        if (zone1ValveStatus == 1) {
+                          modeSelect = 1;
+                          zone1ValveStatus = 0;
+                                        
+                          modeLabel();
+                      } else {
+                        modeSelect = 1;
+                                      
+                        zone1ValveStatus = 1;
+                        modeLabel();
+                        }
+                        Serial.println("Activate : zone1");               
+              }
+              else if (digitalRead(zone2Button) == LOW) {  
+                        forceStopAllTimer();
+                        resetTerminal();
+                        if (zone2ValveStatus == 1) {
+                          modeSelect = 1;
+                          zone2ValveStatus = 0;
+                                        
+                          modeLabel();
+                      } else {
+                        modeSelect = 1;
+                                      
+                        zone2ValveStatus = 1;
+                        modeLabel();
+                        }
+                        Serial.println("Activate : zone2");
+               }
+               else if (digitalRead(zone3Button) == LOW) {  
+                        forceStopAllTimer();
+                        resetTerminal();
+                        if (zone3ValveStatus == 1) {
+                          modeSelect = 1;
+                          zone3ValveStatus = 0;
+                                      
+                          modeLabel();
+                      } else {
+                        modeSelect = 1;
+                                      
+                        zone3ValveStatus = 1;
+                        modeLabel();
+                        }
+                        Serial.println("Activate : zone3");
+               }
+               else if (digitalRead(zone4Button) == LOW) {  
+                        forceStopAllTimer();
+                        resetTerminal();
+                        if (zone4ValveStatus == 1) {
+                          modeSelect = 1;
+                          zone4ValveStatus = 0;
+                                        
+                          modeLabel();
+                      } else {
+                        modeSelect = 1;
+                                      
+                        zone4ValveStatus = 1;
+                        modeLabel();
+                        }
+                        Serial.println("Activate : zone4");
+               } 
+          }        
+    }
+    buttonActive = 0;
+    }
+}
+#endif
+
+/*xoxo
+  void manualButtonCheck() {
   if (digitalRead(manualButton) == LOW) {
     if (buttonActive == 0) {
       buttonActive = 1;
@@ -263,28 +394,18 @@ void manualButtonCheck() {
       longPressActive = 1;
       forceStopAllTimer();
       resetTerminal();
-      if (sprayValveStatus == 1) {
+      if (zone2ValveStatus == 1) {
         modeSelect = 1;
-        sprayValveStatus = 0;
-        lineSender = "Manual User";
-
-#ifdef LINENOTIFY
-        lineNotifyCloseSprayValve();
-#endif
+        zone2ValveStatus = 0;       
 
         modeLabel();
       } else {
         modeSelect = 1;
-        lineSender = "Manual User";
-
-#ifdef LINENOTIFY
-        lineNotifyOpenSprayValve();
-#endif
-
-        sprayValveStatus = 1;
+        
+        zone2ValveStatus = 1;
         modeLabel();
       }
-      Serial.println("spray");
+      Serial.println("zone2");
     }
   } else {
     if (buttonActive == 1) {
@@ -294,31 +415,21 @@ void manualButtonCheck() {
 
         forceStopAllTimer();
         resetTerminal();
-        if (waterValveStatus == 1) {
+        if (zone1ValveStatus == 1) {
           modeSelect = 1;
-          waterValveStatus = 0;
-          lineSender = "Manual User";
-
-#ifdef LINENOTIFY
-          lineNotifyCloseWaterValve();
-#endif
-
+          zone1ValveStatus = 0;
+        
           modeLabel();
         } else {
           modeSelect = 1;
-          lineSender = "Manual User";
-
-#ifdef LINENOTIFY
-          lineNotifyOpenWaterValve();
-#endif
-
-          waterValveStatus = 1;
+        
+          zone1ValveStatus = 1;
           modeLabel();
         }
-        Serial.println("water");
+        Serial.println("zone1");
       }
       buttonActive = 0;
     }
   }
 }
-#endif
+#endif oxox*/

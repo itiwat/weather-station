@@ -4,131 +4,103 @@
 void timerCheck() {
   if (modeSelect == 3) {
 
-    if ((timer1On && timer1WaterStatus) || (timer2On && timer2WaterStatus) || (timer3On && timer3WaterStatus) || (timer4On && timer4WaterStatus) || (timer5On && timer5WaterStatus) || (timer6On && timer6WaterStatus) || (timer7On && timer7WaterStatus) || (timer8On && timer8WaterStatus)) {
-      waterValveStatus = 1;
-      lineSender = "Timer No.";
-      lineSender += timerNumber;
-
-#ifdef LINENOTIFY
-      lineNotifyOpenWaterValve();
-#endif
-
+    if ((timer1On && timer1Zone1Status) || (timer2On && timer2Zone1Status) || (timer3On && timer3Zone1Status) || (timer4On && timer4Zone1Status) || (timer5On && timer5Zone1Status) || (timer6On && timer6Zone1Status) || (timer7On && timer7Zone1Status) || (timer8On && timer8Zone1Status)) {
+      zone1ValveStatus = 1;      
     }
 
-    if ((timer1On && timer1SprayStatus) || (timer2On && timer2SprayStatus) || (timer3On && timer3SprayStatus) || (timer4On && timer4SprayStatus) || (timer5On && timer5SprayStatus) || (timer6On && timer6SprayStatus) || (timer7On && timer7SprayStatus) || (timer8On && timer8SprayStatus)) {
-      sprayValveStatus = 1;
-      lineSender = "Timer No.";
-      lineSender += timerNumber;
-
-#ifdef LINENOTIFY
-      lineNotifyOpenSprayValve();
-#endif
-
+    if ((timer1On && timer1Zone2Status) || (timer2On && timer2Zone2Status) || (timer3On && timer3Zone2Status) || (timer4On && timer4Zone2Status) || (timer5On && timer5Zone2Status) || (timer6On && timer6Zone2Status) || (timer7On && timer7Zone2Status) || (timer8On && timer8Zone2Status)) {
+      zone2ValveStatus = 1;      
     }
 
-    if ((timer1WaterStatus == 0) && (timer2WaterStatus == 0) && (timer3WaterStatus == 0) && (timer4WaterStatus == 0) && (timer5WaterStatus == 0) && (timer6WaterStatus == 0) && (timer7WaterStatus == 0) && (timer8WaterStatus == 0)) {
-      waterValveStatus = 0;
-      lineSender = "Timer No.";
-      lineSender += "x";
-
-#ifdef LINENOTIFY
-      lineNotifyCloseWaterValve();
-#endif
-
+    if ((timer1Zone1Status == 0) && (timer2Zone1Status == 0) && (timer3Zone1Status == 0) && (timer4Zone1Status == 0) && (timer5Zone1Status == 0) && (timer6Zone1Status == 0) && (timer7Zone1Status == 0) && (timer8Zone1Status == 0)) {
+      zone1ValveStatus = 0;
     }
 
-    if ((timer1SprayStatus == 0) && (timer2SprayStatus == 0) && (timer3SprayStatus == 0) && (timer4SprayStatus == 0) && (timer5SprayStatus == 0) && (timer6SprayStatus == 0) && (timer7SprayStatus == 0) && (timer8SprayStatus == 0))  {
-      sprayValveStatus = 0;
-      lineSender = "Timer No.";
-      lineSender += "x";
-
-#ifdef LINENOTIFY
-      lineNotifyCloseSprayValve();
-#endif
-
+    if ((timer1Zone2Status == 0) && (timer2Zone2Status == 0) && (timer3Zone2Status == 0) && (timer4Zone2Status == 0) && (timer5Zone2Status == 0) && (timer6Zone2Status == 0) && (timer7Zone2Status == 0) && (timer8Zone2Status == 0))  {
+      zone2ValveStatus = 0;
     }
   }
 }
 
 
 void timer1OpenAll() {
-  timer1WaterStatus = 1;
-  timer1SprayStatus = 1;
+  timer1Zone1Status = 1;
+  timer1Zone2Status = 1;
 }
 
 void timer1CloseAll() {
-  timer1WaterStatus = 0;
-  timer1SprayStatus = 0;
+  timer1Zone1Status = 0;
+  timer1Zone2Status = 0;
 }
 
 void timer2OpenAll() {
-  timer2WaterStatus = 1;
-  timer2SprayStatus = 1;
+  timer2Zone1Status = 1;
+  timer2Zone2Status = 1;
 }
 
 void timer2CloseAll() {
-  timer2WaterStatus = 0;
-  timer2SprayStatus = 0;
+  timer2Zone1Status = 0;
+  timer2Zone2Status = 0;
 }
 
 void timer3OpenAll() {
-  timer3WaterStatus = 1;
-  timer3SprayStatus = 1;
+  timer3Zone1Status = 1;
+  timer3Zone2Status = 1;
 }
 
 void timer3CloseAll() {
-  timer3WaterStatus = 0;
-  timer3SprayStatus = 0;
+  timer3Zone1Status = 0;
+  timer3Zone2Status = 0;
 }
 
 void timer4OpenAll() {
-  timer4WaterStatus = 1;
-  timer4SprayStatus = 1;
+  timer4Zone1Status = 1;
+  timer4Zone2Status = 1;
 }
 
 void timer4CloseAll() {
-  timer4WaterStatus = 0;
-  timer4SprayStatus = 0;
+  timer4Zone1Status = 0;
+  timer4Zone2Status = 0;
 }
 
 void timer5OpenAll() {
-  timer5WaterStatus = 1;
-  timer5SprayStatus = 1;
+  timer5Zone1Status = 1;
+  timer5Zone2Status = 1;
 }
 
 void timer5CloseAll() {
-  timer5WaterStatus = 0;
-  timer5SprayStatus = 0;
+  timer5Zone1Status = 0;
+  timer5Zone2Status = 0;
 }
 
 void timer6OpenAll() {
-  timer6WaterStatus = 1;
-  timer6SprayStatus = 1;
+  timer6Zone1Status = 1;
+  timer6Zone2Status = 1;
 }
 
 void timer6CloseAll() {
-  timer6WaterStatus = 0;
-  timer6SprayStatus = 0;
+  timer6Zone1Status = 0;
+  timer6Zone2Status = 0;
 }
 
 void timer7OpenAll() {
-  timer7WaterStatus = 1;
-  timer7SprayStatus = 1;
+  timer7Zone1Status = 1;
+  timer7Zone2Status = 1;
 }
 
 void timer7CloseAll() {
-  timer7WaterStatus = 0;
-  timer7SprayStatus = 0;
+  timer7Zone1Status = 0;
+  timer7Zone2Status = 0;
 }
 
 void timer8OpenAll() {
-  timer8WaterStatus = 1;
-  timer8SprayStatus = 1;
+  timer8Zone1Status = 1;
+  timer8Zone2Status = 1;
 }
 
 void timer8CloseAll() {
-  timer8WaterStatus = 0;
-  timer8SprayStatus = 0;
+  timer8Zone1Status = 0;
+  timer8Zone2Status = 0;
 }
 
 BLYNK_WRITE(Widget_TimerButton_1) {  //timer 1 button  0=off 1= w+s 2=w 3=s
@@ -264,7 +236,7 @@ BLYNK_WRITE(Widget_TimerInput_1) {  //  timer 1
         //Serial.print("Timer 1  STARTED at");
         //Serial.println(String(" ") + t.getStartHour() + ":" + t.getStartMinute());
         if (nowseconds <= startsecondswd + 90) {  // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, HIGH); // set LED ON
+          //digitalWrite(zone1Led, HIGH); // set LED ON
           //Serial.println("Timer 1 on 1");
           timer1On = 1;
           timerNumber = 1;
@@ -273,11 +245,11 @@ BLYNK_WRITE(Widget_TimerInput_1) {  //  timer 1
           if (timer1Work == 1) {
             timer1OpenAll();
           } else if (timer1Work == 2) {
-            timer1WaterStatus = 1;
-            timer1SprayStatus = 0;
+            timer1Zone1Status = 1;
+            timer1Zone2Status = 0;
           } else if (timer1Work == 3) {
-            timer1SprayStatus = 1;
-            timer1WaterStatus = 0;
+            timer1Zone2Status = 1;
+            timer1Zone1Status = 0;
           }
 
           // code here to switch the relay ON
@@ -291,7 +263,7 @@ BLYNK_WRITE(Widget_TimerInput_1) {  //  timer 1
       //Serial.println(stopsecondswd);
 
       if (nowseconds >= stopsecondswd) {
-        //digitalWrite(waterLed, LOW); // set LED OFF
+        //digitalWrite(zone1Led, LOW); // set LED OFF
         //Serial.println("Timer 1 off 1");
         timer1CloseAll();
         timer1On = 0;
@@ -299,7 +271,7 @@ BLYNK_WRITE(Widget_TimerInput_1) {  //  timer 1
         //Serial.print("Timer 1 STOPPED at");
         //Serial.println(String(" ") + t.getStopHour() + ":" + t.getStopMinute());
         if (nowseconds <= stopsecondswd + 90) { // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, LOW); // set LED OFF
+          //digitalWrite(zone1Led, LOW); // set LED OFF
           //Serial.println("Timer 1 off 2");
           timer1CloseAll();
           timer1On = 0;
@@ -309,7 +281,7 @@ BLYNK_WRITE(Widget_TimerInput_1) {  //  timer 1
       }
       else {
         if (nowseconds >= startsecondswd) {
-          //digitalWrite(waterLed, HIGH); // set LED ON    test
+          //digitalWrite(zone1Led, HIGH); // set LED ON    test
           //Serial.println("Timer 1 on 2");
           timer1On = 1;
           timerNumber = 1;
@@ -318,11 +290,11 @@ BLYNK_WRITE(Widget_TimerInput_1) {  //  timer 1
           if (timer1Work == 1) {
             timer1OpenAll();
           } else if (timer1Work == 2) {
-            timer1WaterStatus = 1;
-            timer1SprayStatus = 0;
+            timer1Zone1Status = 1;
+            timer1Zone2Status = 0;
           } else if (timer1Work == 3) {
-            timer1SprayStatus = 1;
-            timer1WaterStatus = 0;
+            timer1Zone2Status = 1;
+            timer1Zone1Status = 0;
           }
 
           //Serial.println("Timer 1 is ON");
@@ -371,7 +343,7 @@ BLYNK_WRITE(Widget_TimerInput_2) {  //  timer 2
         //Serial.print("Timer 2  STARTED at");
         //Serial.println(String(" ") + t.getStartHour() + ":" + t.getStartMinute());
         if (nowseconds <= startsecondswd + 90) {  // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, HIGH); // set LED ON
+          //digitalWrite(zone1Led, HIGH); // set LED ON
           //Serial.println("Timer 2 on 1");
           timer2On = 1;
           timerNumber = 2;
@@ -380,11 +352,11 @@ BLYNK_WRITE(Widget_TimerInput_2) {  //  timer 2
           if (timer2Work == 1) {
             timer2OpenAll();
           } else if (timer2Work == 2) {
-            timer2WaterStatus = 1;
-            timer2SprayStatus = 0;
+            timer2Zone1Status = 1;
+            timer2Zone2Status = 0;
           } else if (timer2Work == 3) {
-            timer2SprayStatus = 1;
-            timer2WaterStatus = 0;
+            timer2Zone2Status = 1;
+            timer2Zone1Status = 0;
           }
 
           // code here to switch the relay ON
@@ -398,14 +370,14 @@ BLYNK_WRITE(Widget_TimerInput_2) {  //  timer 2
       //Serial.println(stopsecondswd);
 
       if (nowseconds >= stopsecondswd) {
-        //digitalWrite(waterLed, LOW); // set LED OFF
+        //digitalWrite(zone1Led, LOW); // set LED OFF
         //Serial.println("Timer 2 off 1");
         timer2CloseAll();
 
         //Serial.print("Timer 2 STOPPED at");
         //Serial.println(String(" ") + t.getStopHour() + ":" + t.getStopMinute());
         if (nowseconds <= stopsecondswd + 90) { // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, LOW); // set LED OFF
+          //digitalWrite(zone1Led, LOW); // set LED OFF
           //Serial.println("Timer 2 off 2");
           timer2CloseAll();
 
@@ -414,7 +386,7 @@ BLYNK_WRITE(Widget_TimerInput_2) {  //  timer 2
       }
       else {
         if (nowseconds >= startsecondswd) {
-          //digitalWrite(waterLed, HIGH); // set LED ON
+          //digitalWrite(zone1Led, HIGH); // set LED ON
           //Serial.println("Timer 2 on 2");
           timer2On = 1;
           timerNumber = 2;
@@ -423,11 +395,11 @@ BLYNK_WRITE(Widget_TimerInput_2) {  //  timer 2
           if (timer2Work == 1) {
             timer2OpenAll();
           } else if (timer2Work == 2) {
-            timer2WaterStatus = 1;
-            timer2SprayStatus = 0;
+            timer2Zone1Status = 1;
+            timer2Zone2Status = 0;
           } else if (timer2Work == 3) {
-            timer2SprayStatus = 1;
-            timer2WaterStatus = 0;
+            timer2Zone2Status = 1;
+            timer2Zone1Status = 0;
           }
 
           // code here to switch the relay ON
@@ -477,7 +449,7 @@ BLYNK_WRITE(Widget_TimerInput_3) {  //  timer 3
         //Serial.print("Timer 3  STARTED at");
         //Serial.println(String(" ") + t.getStartHour() + ":" + t.getStartMinute());
         if (nowseconds <= startsecondswd + 90) {  // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, HIGH); // set LED ON
+          //digitalWrite(zone1Led, HIGH); // set LED ON
           //Serial.println("Timer 3 on 1");
           timer3On = 1;
           timerNumber = 3;
@@ -486,11 +458,11 @@ BLYNK_WRITE(Widget_TimerInput_3) {  //  timer 3
           if (timer3Work == 1) {
             timer3OpenAll();
           } else if (timer3Work == 2) {
-            timer3WaterStatus = 1;
-            timer3SprayStatus = 0;
+            timer3Zone1Status = 1;
+            timer3Zone2Status = 0;
           } else if (timer3Work == 3) {
-            timer3SprayStatus = 1;
-            timer3WaterStatus = 0;
+            timer3Zone2Status = 1;
+            timer3Zone1Status = 0;
           }
 
           // code here to switch the relay ON
@@ -504,7 +476,7 @@ BLYNK_WRITE(Widget_TimerInput_3) {  //  timer 3
       //Serial.println(stopsecondswd);
 
       if (nowseconds >= stopsecondswd) {
-        //digitalWrite(waterLed, LOW); // set LED OFF
+        //digitalWrite(zone1Led, LOW); // set LED OFF
         //Serial.println("Timer 3 off 1");
         timer3CloseAll();
         timer3On = 0;
@@ -512,7 +484,7 @@ BLYNK_WRITE(Widget_TimerInput_3) {  //  timer 3
         //Serial.print("Timer 3 STOPPED at");
         //Serial.println(String(" ") + t.getStopHour() + ":" + t.getStopMinute());
         if (nowseconds <= stopsecondswd + 90) { // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, LOW); // set LED OFF
+          //digitalWrite(zone1Led, LOW); // set LED OFF
           //Serial.println("Timer 3 off 2");
           timer3CloseAll();
           timer3On = 0;
@@ -522,7 +494,7 @@ BLYNK_WRITE(Widget_TimerInput_3) {  //  timer 3
       }
       else {
         if (nowseconds >= startsecondswd) {
-          //digitalWrite(waterLed, HIGH); // set LED ON
+          //digitalWrite(zone1Led, HIGH); // set LED ON
           //Serial.println("Timer 3 on 2");
           timer3On = 1;
           timerNumber = 3;
@@ -531,11 +503,11 @@ BLYNK_WRITE(Widget_TimerInput_3) {  //  timer 3
           if (timer3Work == 1) {
             timer3OpenAll();
           } else if (timer3Work == 2) {
-            timer3WaterStatus = 1;
-            timer3SprayStatus = 0;
+            timer3Zone1Status = 1;
+            timer3Zone2Status = 0;
           } else if (timer3Work == 3) {
-            timer3SprayStatus = 1;
-            timer3WaterStatus = 0;
+            timer3Zone2Status = 1;
+            timer3Zone1Status = 0;
           }
 
           // code here to switch the relay ON
@@ -585,7 +557,7 @@ BLYNK_WRITE(Widget_TimerInput_4) {  //  timer 4
         //Serial.print("Timer 4  STARTED at");
         //Serial.println(String(" ") + t.getStartHour() + ":" + t.getStartMinute());
         if (nowseconds <= startsecondswd + 90) {  // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, HIGH); // set LED ON
+          //digitalWrite(zone1Led, HIGH); // set LED ON
           //Serial.println("Timer 4 on 1");
           timer4On = 1;
           timerNumber = 4;
@@ -594,11 +566,11 @@ BLYNK_WRITE(Widget_TimerInput_4) {  //  timer 4
           if (timer4Work == 1) {
             timer4OpenAll();
           } else if (timer4Work == 2) {
-            timer4WaterStatus = 1;
-            timer4SprayStatus = 0;
+            timer4Zone1Status = 1;
+            timer4Zone2Status = 0;
           } else if (timer4Work == 3) {
-            timer4SprayStatus = 1;
-            timer4WaterStatus = 0;
+            timer4Zone2Status = 1;
+            timer4Zone1Status = 0;
           }
 
           // code here to switch the relay ON
@@ -612,7 +584,7 @@ BLYNK_WRITE(Widget_TimerInput_4) {  //  timer 4
       //Serial.println(stopsecondswd);
 
       if (nowseconds >= stopsecondswd) {
-        //digitalWrite(waterLed, LOW); // set LED OFF
+        //digitalWrite(zone1Led, LOW); // set LED OFF
         //Serial.println("Timer 4 off 1");
         timer4CloseAll();
         timer4On = 0;
@@ -620,7 +592,7 @@ BLYNK_WRITE(Widget_TimerInput_4) {  //  timer 4
         //Serial.print("Timer 4 STOPPED at");
         //Serial.println(String(" ") + t.getStopHour() + ":" + t.getStopMinute());
         if (nowseconds <= stopsecondswd + 90) { // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, LOW); // set LED OFF
+          //digitalWrite(zone1Led, LOW); // set LED OFF
           //Serial.println("Timer 4 off 2");
           timer4CloseAll();
           timer4On = 0;
@@ -630,7 +602,7 @@ BLYNK_WRITE(Widget_TimerInput_4) {  //  timer 4
       }
       else {
         if (nowseconds >= startsecondswd) {
-          //digitalWrite(waterLed, HIGH); // set LED ON    test
+          //digitalWrite(zone1Led, HIGH); // set LED ON    test
           //Serial.println("Timer 4 on 2");
           timer4On = 1;
           timerNumber = 4;
@@ -639,11 +611,11 @@ BLYNK_WRITE(Widget_TimerInput_4) {  //  timer 4
           if (timer4Work == 1) {
             timer4OpenAll();
           } else if (timer4Work == 2) {
-            timer4WaterStatus = 1;
-            timer4SprayStatus = 0;
+            timer4Zone1Status = 1;
+            timer4Zone2Status = 0;
           } else if (timer4Work == 3) {
-            timer4SprayStatus = 1;
-            timer4WaterStatus = 0;
+            timer4Zone2Status = 1;
+            timer4Zone1Status = 0;
           }
 
           //Serial.println("Timer 4 is ON");
@@ -692,7 +664,7 @@ BLYNK_WRITE(Widget_TimerInput_5) {  //  timer 5
         //Serial.print("Timer 5  STARTED at");
         //Serial.println(String(" ") + t.getStartHour() + ":" + t.getStartMinute());
         if (nowseconds <= startsecondswd + 90) {  // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, HIGH); // set LED ON
+          //digitalWrite(zone1Led, HIGH); // set LED ON
           //Serial.println("Timer 5 on 1");
           timer5On = 1;
           timerNumber = 5;
@@ -701,11 +673,11 @@ BLYNK_WRITE(Widget_TimerInput_5) {  //  timer 5
           if (timer5Work == 1) {
             timer5OpenAll();
           } else if (timer5Work == 2) {
-            timer5WaterStatus = 1;
-            timer5SprayStatus = 0;
+            timer5Zone1Status = 1;
+            timer5Zone2Status = 0;
           } else if (timer5Work == 3) {
-            timer5SprayStatus = 1;
-            timer5WaterStatus = 0;
+            timer5Zone2Status = 1;
+            timer5Zone1Status = 0;
           }
 
           // code here to switch the relay ON
@@ -719,7 +691,7 @@ BLYNK_WRITE(Widget_TimerInput_5) {  //  timer 5
       //Serial.println(stopsecondswd);
 
       if (nowseconds >= stopsecondswd) {
-        //digitalWrite(waterLed, LOW); // set LED OFF
+        //digitalWrite(zone1Led, LOW); // set LED OFF
         //Serial.println("Timer 5 off 1");
         timer5CloseAll();
         timer5On = 0;
@@ -727,7 +699,7 @@ BLYNK_WRITE(Widget_TimerInput_5) {  //  timer 5
         //Serial.print("Timer 5 STOPPED at");
         //Serial.println(String(" ") + t.getStopHour() + ":" + t.getStopMinute());
         if (nowseconds <= stopsecondswd + 90) { // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, LOW); // set LED OFF
+          //digitalWrite(zone1Led, LOW); // set LED OFF
           //Serial.println("Timer 5 off 2");
           timer5CloseAll();
           timer5On = 0;
@@ -737,7 +709,7 @@ BLYNK_WRITE(Widget_TimerInput_5) {  //  timer 5
       }
       else {
         if (nowseconds >= startsecondswd) {
-          //digitalWrite(waterLed, HIGH); // set LED ON    test
+          //digitalWrite(zone1Led, HIGH); // set LED ON    test
           //Serial.println("Timer 5 on 2");
           timer5On = 1;
           timerNumber = 5;
@@ -746,11 +718,11 @@ BLYNK_WRITE(Widget_TimerInput_5) {  //  timer 5
           if (timer5Work == 1) {
             timer5OpenAll();
           } else if (timer5Work == 2) {
-            timer5WaterStatus = 1;
-            timer5SprayStatus = 0;
+            timer5Zone1Status = 1;
+            timer5Zone2Status = 0;
           } else if (timer5Work == 3) {
-            timer5SprayStatus = 1;
-            timer5WaterStatus = 0;
+            timer5Zone2Status = 1;
+            timer5Zone1Status = 0;
           }
 
           //Serial.println("Timer 5 is ON");
@@ -800,7 +772,7 @@ BLYNK_WRITE(Widget_TimerInput_6) {  //  timer 6
         //Serial.print("Timer 6  STARTED at");
         //Serial.println(String(" ") + t.getStartHour() + ":" + t.getStartMinute());
         if (nowseconds <= startsecondswd + 90) {  // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, HIGH); // set LED ON
+          //digitalWrite(zone1Led, HIGH); // set LED ON
           //Serial.println("Timer 6 on 1");
           timer6On = 1;
           timerNumber = 6;
@@ -809,11 +781,11 @@ BLYNK_WRITE(Widget_TimerInput_6) {  //  timer 6
           if (timer6Work == 1) {
             timer6OpenAll();
           } else if (timer6Work == 2) {
-            timer6WaterStatus = 1;
-            timer6SprayStatus = 0;
+            timer6Zone1Status = 1;
+            timer6Zone2Status = 0;
           } else if (timer6Work == 3) {
-            timer6SprayStatus = 1;
-            timer6WaterStatus = 0;
+            timer6Zone2Status = 1;
+            timer6Zone1Status = 0;
           }
 
           // code here to switch the relay ON
@@ -827,7 +799,7 @@ BLYNK_WRITE(Widget_TimerInput_6) {  //  timer 6
       //Serial.println(stopsecondswd);
 
       if (nowseconds >= stopsecondswd) {
-        //digitalWrite(waterLed, LOW); // set LED OFF
+        //digitalWrite(zone1Led, LOW); // set LED OFF
         //Serial.println("Timer 6 off 1");
         timer6CloseAll();
         timer6On = 0;
@@ -835,7 +807,7 @@ BLYNK_WRITE(Widget_TimerInput_6) {  //  timer 6
         //Serial.print("Timer 6 STOPPED at");
         //Serial.println(String(" ") + t.getStopHour() + ":" + t.getStopMinute());
         if (nowseconds <= stopsecondswd + 90) { // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, LOW); // set LED OFF
+          //digitalWrite(zone1Led, LOW); // set LED OFF
           //Serial.println("Timer 6 off 2");
           timer6CloseAll();
           timer6On = 0;
@@ -845,7 +817,7 @@ BLYNK_WRITE(Widget_TimerInput_6) {  //  timer 6
       }
       else {
         if (nowseconds >= startsecondswd) {
-          //digitalWrite(waterLed, HIGH); // set LED ON    test
+          //digitalWrite(zone1Led, HIGH); // set LED ON    test
           //Serial.println("Timer 6 on 2");
           timer6On = 1;
           timerNumber = 6;
@@ -854,11 +826,11 @@ BLYNK_WRITE(Widget_TimerInput_6) {  //  timer 6
           if (timer6Work == 1) {
             timer6OpenAll();
           } else if (timer6Work == 2) {
-            timer6WaterStatus = 1;
-            timer6SprayStatus = 0;
+            timer6Zone1Status = 1;
+            timer6Zone2Status = 0;
           } else if (timer6Work == 3) {
-            timer6SprayStatus = 1;
-            timer6WaterStatus = 0;
+            timer6Zone2Status = 1;
+            timer6Zone1Status = 0;
           }
 
           //Serial.println("Timer 6 is ON");
@@ -908,7 +880,7 @@ BLYNK_WRITE(Widget_TimerInput_7) {  //  timer 7
         //Serial.print("Timer 7  STARTED at");
         //Serial.println(String(" ") + t.getStartHour() + ":" + t.getStartMinute());
         if (nowseconds <= startsecondswd + 90) {  // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, HIGH); // set LED ON
+          //digitalWrite(zone1Led, HIGH); // set LED ON
           //Serial.println("Timer 7 on 1");
           timer7On = 1;
           timerNumber = 7;
@@ -917,11 +889,11 @@ BLYNK_WRITE(Widget_TimerInput_7) {  //  timer 7
           if (timer7Work == 1) {
             timer7OpenAll();
           } else if (timer7Work == 2) {
-            timer7WaterStatus = 1;
-            timer7SprayStatus = 0;
+            timer7Zone1Status = 1;
+            timer7Zone2Status = 0;
           } else if (timer7Work == 3) {
-            timer7SprayStatus = 1;
-            timer7WaterStatus = 0;
+            timer7Zone2Status = 1;
+            timer7Zone1Status = 0;
           }
 
           // code here to switch the relay ON
@@ -935,7 +907,7 @@ BLYNK_WRITE(Widget_TimerInput_7) {  //  timer 7
       //Serial.println(stopsecondswd);
 
       if (nowseconds >= stopsecondswd) {
-        //digitalWrite(waterLed, LOW); // set LED OFF
+        //digitalWrite(zone1Led, LOW); // set LED OFF
         //Serial.println("Timer 7 off 1");
         timer7CloseAll();
         timer7On = 0;
@@ -943,7 +915,7 @@ BLYNK_WRITE(Widget_TimerInput_7) {  //  timer 7
         //Serial.print("Timer 7 STOPPED at");
         //Serial.println(String(" ") + t.getStopHour() + ":" + t.getStopMinute());
         if (nowseconds <= stopsecondswd + 90) { // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, LOW); // set LED OFF
+          //digitalWrite(zone1Led, LOW); // set LED OFF
           //Serial.println("Timer 7 off 2");
           timer7CloseAll();
           timer7On = 0;
@@ -953,7 +925,7 @@ BLYNK_WRITE(Widget_TimerInput_7) {  //  timer 7
       }
       else {
         if (nowseconds >= startsecondswd) {
-          //digitalWrite(waterLed, HIGH); // set LED ON    test
+          //digitalWrite(zone1Led, HIGH); // set LED ON    test
           //Serial.println("Timer 7 on 2");
           timer7On = 1;
           timerNumber = 7;
@@ -962,11 +934,11 @@ BLYNK_WRITE(Widget_TimerInput_7) {  //  timer 7
           if (timer7Work == 1) {
             timer7OpenAll();
           } else if (timer7Work == 2) {
-            timer7WaterStatus = 1;
-            timer7SprayStatus = 0;
+            timer7Zone1Status = 1;
+            timer7Zone2Status = 0;
           } else if (timer7Work == 3) {
-            timer7SprayStatus = 1;
-            timer7WaterStatus = 0;
+            timer7Zone2Status = 1;
+            timer7Zone1Status = 0;
           }
 
           //Serial.println("Timer 7 is ON");
@@ -1015,7 +987,7 @@ BLYNK_WRITE(Widget_TimerInput_8) {  //  timer 8
         //Serial.print("Timer 8  STARTED at");
         //Serial.println(String(" ") + t.getStartHour() + ":" + t.getStartMinute());
         if (nowseconds <= startsecondswd + 90) {  // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, HIGH); // set LED ON
+          //digitalWrite(zone1Led, HIGH); // set LED ON
           //Serial.println("Timer 8 on 1");
           timer8On = 1;
           timerNumber = 8;
@@ -1024,11 +996,11 @@ BLYNK_WRITE(Widget_TimerInput_8) {  //  timer 8
           if (timer8Work == 1) {
             timer8OpenAll();
           } else if (timer8Work == 2) {
-            timer8WaterStatus = 1;
-            timer8SprayStatus = 0;
+            timer8Zone1Status = 1;
+            timer8Zone2Status = 0;
           } else if (timer8Work == 3) {
-            timer8SprayStatus = 1;
-            timer8WaterStatus = 0;
+            timer8Zone2Status = 1;
+            timer8Zone1Status = 0;
           }
 
           // code here to switch the relay ON
@@ -1042,7 +1014,7 @@ BLYNK_WRITE(Widget_TimerInput_8) {  //  timer 8
       //Serial.println(stopsecondswd);
 
       if (nowseconds >= stopsecondswd) {
-        //digitalWrite(waterLed, LOW); // set LED OFF
+        //digitalWrite(zone1Led, LOW); // set LED OFF
         //Serial.println("Timer 8 off 1");
         timer8CloseAll();
         timer8On = 0;
@@ -1051,7 +1023,7 @@ BLYNK_WRITE(Widget_TimerInput_8) {  //  timer 8
         //Serial.print("Timer 8 STOPPED at");
         //Serial.println(String(" ") + t.getStopHour() + ":" + t.getStopMinute());
         if (nowseconds <= stopsecondswd + 90) { // 90s on 60s timer ensures 1 trigger command is sent
-          //digitalWrite(waterLed, LOW); // set LED OFF
+          //digitalWrite(zone1Led, LOW); // set LED OFF
           //Serial.println("Timer 8 off 2");
           timer8CloseAll();
           timer8On = 0;
@@ -1062,7 +1034,7 @@ BLYNK_WRITE(Widget_TimerInput_8) {  //  timer 8
       }
       else {
         if (nowseconds >= startsecondswd) {
-          //digitalWrite(waterLed, HIGH); // set LED ON    test
+          //digitalWrite(zone1Led, HIGH); // set LED ON    test
           //Serial.println("Timer 8 on 2");
           timer8On = 1;
           timerNumber = 8;
@@ -1071,11 +1043,11 @@ BLYNK_WRITE(Widget_TimerInput_8) {  //  timer 8
           if (timer8Work == 1) {
             timer8OpenAll();
           } else if (timer8Work == 2) {
-            timer8WaterStatus = 1;
-            timer8SprayStatus = 0;
+            timer8Zone1Status = 1;
+            timer8Zone2Status = 0;
           } else if (timer8Work == 3) {
-            timer8SprayStatus = 1;
-            timer8WaterStatus = 0;
+            timer8Zone2Status = 1;
+            timer8Zone1Status = 0;
           }
 
           //Serial.println("Timer 8 is ON");

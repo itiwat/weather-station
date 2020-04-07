@@ -48,69 +48,74 @@ BLYNK_WRITE(Widget_WaterSprayDurationSetSlide) {  //water time duration set
 
 #ifdef ILI9341
   displayDataSet();
-  Serial.println("water time duration set");
+  Serial.println("zone3 time duration set");
 #endif
 
 }
 
-BLYNK_WRITE(Widget_ModeButton) {  //mode button
-  forceStopAllTimer();
-  closeAllValve();
-  resetTerminal();
-  if (param.asInt() == 1) {
-    modeSelect++;
-    if (modeSelect >= 4) modeSelect = 1;
-    modeLabel();
-  }
-}
-
-BLYNK_WRITE(Widget_WaterButton) {  //water manual button
+BLYNK_WRITE(Widget_Zone1Button) {  //zone1 manual button
+  if ( modeSelect != 1 ) { return; }  //If not in manual mode ignore control from app
   forceStopAllTimer();
   resetTerminal();
   if (param.asInt() == 1) {
     modeSelect = 1;
-    lineSender = "Manual Blynk";
-
-#ifdef LINENOTIFY
-    lineNotifyOpenWaterValve();
-#endif
-
-    waterValveStatus = 1;
+    
+    zone1ValveStatus = 1;
     modeLabel();
   } else {
     modeSelect = 1;
-    waterValveStatus = 0;
-    lineSender = "Manual Blynk";
-
-#ifdef LINENOTIFY
-    lineNotifyCloseWaterValve();
-#endif
+    zone1ValveStatus = 0;
 
     modeLabel();
   }
 }
 
-BLYNK_WRITE(Widget_SprayButton) {  //spray manual button
+BLYNK_WRITE(Widget_Zone2Button) {  //zone2 manual button
+  if ( modeSelect != 1 ) { return; }  //If not in manual mode ignore control from app
   forceStopAllTimer();
   resetTerminal();
   if (param.asInt() == 1) {
     modeSelect = 1;
-    lineSender = "Manual Blynk";
 
-#ifdef LINENOTIFY
-    lineNotifyOpenSprayValve();
-#endif
-
-    sprayValveStatus = 1;
+    zone2ValveStatus = 1;
     modeLabel();
   } else {
     modeSelect = 1;
-    sprayValveStatus = 0;
-    lineSender = "Manual Blynk";
+    zone2ValveStatus = 0;
 
-#ifdef LINENOTIFY
-    lineNotifyCloseSprayValve();
-#endif
+    modeLabel();
+  }
+}
+
+BLYNK_WRITE(Widget_Zone3Button) {  //zone3 manual button
+  if ( modeSelect != 1 ) { return; }  //If not in manual mode ignore control from app
+  forceStopAllTimer();
+  resetTerminal();
+  if (param.asInt() == 1) {
+    modeSelect = 1;
+
+    zone3ValveStatus = 1;
+    modeLabel();
+  } else {
+    modeSelect = 1;
+    zone3ValveStatus = 0;
+
+    modeLabel();
+  }
+}
+
+BLYNK_WRITE(Widget_Zone4Button) {  //zone4 manual button
+  if ( modeSelect != 1 ) { return; }  //If not in manual mode ignore control from app
+  forceStopAllTimer();
+  resetTerminal();
+  if (param.asInt() == 1) {
+    modeSelect = 1;
+
+    zone4ValveStatus = 1;
+    modeLabel();
+  } else {
+    modeSelect = 1;
+    zone4ValveStatus = 0;
 
     modeLabel();
   }
@@ -126,19 +131,35 @@ BLYNK_WRITE(Widget_RainDelayButton) {  //rain delay button
   }
 }
 
-BLYNK_WRITE(Widget_WaterAutoTimerButton) {  //water work button
+BLYNK_WRITE(Widget_Zone1AutoTimerButton) {  //zone1 work button
   if (param.asInt() == 1) {
-    waterAutoTimerWork = 1;
+    zone1AutoTimerWork = 1;
   } else {
-    waterAutoTimerWork = 0;
+    zone1AutoTimerWork = 0;
   }
 }
 
-BLYNK_WRITE(Widget_SprayAutoTimerButton) {  //spray work button
+BLYNK_WRITE(Widget_Zone2AutoTimerButton) {  //zone2 work button
   if (param.asInt() == 1) {
-    sprayAutoTimerWork = 1;
+    zone2AutoTimerWork = 1;
   } else {
-    sprayAutoTimerWork = 0;
+    zone2AutoTimerWork = 0;
+  }
+}
+
+BLYNK_WRITE(Widget_Zone3AutoTimerButton) {  //zone3 work button
+  if (param.asInt() == 1) {
+    zone3AutoTimerWork = 1;
+  } else {
+    zone3AutoTimerWork = 0;
+  }
+}
+
+BLYNK_WRITE(Widget_Zone4AutoTimerButton) {  //zone4 work button
+  if (param.asInt() == 1) {
+    zone4AutoTimerWork = 1;
+  } else {
+    zone4AutoTimerWork = 0;
   }
 }
 
@@ -157,8 +178,10 @@ void syncAllBlynk() {
   lightSetWrite = EEPROM.read(LIGHT_SET_ADDRESS);
   lightSet = lightSetWrite * 1000;
   autoWaterSprayDurationSet = EEPROM.read(AUTO_WATER_SPRAY_DURATION_SET_ADDRESS);
-  waterAutoTimerWork = EEPROM.read(WATER_AUTO_TIMER_ADDRESS);
-  sprayAutoTimerWork = EEPROM.read(SPRAY_AUTO_TIMER_ADDRESS);
+  zone1AutoTimerWork = EEPROM.read(ZONE1_AUTO_TIMER_ADDRESS);
+  zone2AutoTimerWork = EEPROM.read(ZONE2_AUTO_TIMER_ADDRESS);
+  zone3AutoTimerWork = EEPROM.read(ZONE3_AUTO_TIMER_ADDRESS);
+  zone4AutoTimerWork = EEPROM.read(ZONE4_AUTO_TIMER_ADDRESS);
   rainDelayWork = EEPROM.read(RAIN_DELAY_ADDRESS);
   timer1Work = EEPROM.read(TIMER1_ADDRESS);
   timer2Work = EEPROM.read(TIMER2_ADDRESS);
@@ -179,8 +202,10 @@ void syncAllBlynk() {
   timer7Label();
   timer8Label();
 
-  Blynk.virtualWrite(Widget_WaterAutoTimerButton, waterAutoTimerWork);
-  Blynk.virtualWrite(Widget_SprayAutoTimerButton, sprayAutoTimerWork);
+  Blynk.virtualWrite(Widget_Zone1AutoTimerButton, zone1AutoTimerWork);
+  Blynk.virtualWrite(Widget_Zone2AutoTimerButton, zone2AutoTimerWork);
+  Blynk.virtualWrite(Widget_Zone3AutoTimerButton, zone3AutoTimerWork);
+  Blynk.virtualWrite(Widget_Zone4AutoTimerButton, zone4AutoTimerWork);
   Blynk.virtualWrite(Widget_SensorRoundSetSlide, sensorRoundSet);
   Blynk.virtualWrite(Widget_MoistureSetSlide, moistureSet);
   Blynk.virtualWrite(Widget_WaterSprayDurationSetSlide, autoWaterSprayDurationSet);
@@ -203,19 +228,14 @@ void resetTerminal() {
 }
 
 void modeLabel() {
-  if (modeSelect == 1) {
-    Blynk.setProperty(Widget_ModeButton, "onLabel", "MANUAL");
-    Blynk.setProperty(Widget_ModeButton, "offLabel", "MANUAL");
-  } else if (modeSelect == 2) {
-    Blynk.setProperty(Widget_ModeButton, "onLabel", "AUTO");
-    Blynk.setProperty(Widget_ModeButton, "offLabel", "AUTO");
-  } else if (modeSelect == 3) {
-    Blynk.setProperty(Widget_ModeButton, "onLabel", "TIMER");
-    Blynk.setProperty(Widget_ModeButton, "offLabel", "TIMER");
-  }
+  if (modeSelect == 1) { Blynk.virtualWrite(Widget_ModeDisplay,"MANUAL"); Blynk.virtualWrite(Widget_ManualControlDisplay,"Push Button"); } 
+  else if (modeSelect == 2) { Blynk.virtualWrite(Widget_ModeDisplay,"AUTO"); Blynk.virtualWrite(Widget_ManualControlDisplay,"Button not response if not within manual mode"); } 
+  else if (modeSelect == 3) { Blynk.virtualWrite(Widget_ModeDisplay,"TIMER"); Blynk.virtualWrite(Widget_ManualControlDisplay,"Button not response if not within manual mode"); }
 
-  Blynk.virtualWrite(Widget_WaterButton, waterValveStatus);
-  Blynk.virtualWrite(Widget_SprayButton, sprayValveStatus);
+  Blynk.virtualWrite(Widget_Zone1Button, zone1ValveStatus);
+  Blynk.virtualWrite(Widget_Zone2Button, zone2ValveStatus);
+  Blynk.virtualWrite(Widget_Zone3Button, zone3ValveStatus);
+  Blynk.virtualWrite(Widget_Zone4Button, zone4ValveStatus);
 
 }
 
@@ -225,19 +245,19 @@ void timer1Label() {
     Blynk.setProperty(Widget_TimerButton_1, "offLabel", "OFF");
     Blynk.setProperty(Widget_TimerInput_1, "label", "TIMER 1 (OFF)");
   } else if (timer1Work == 1) {
-    Blynk.setProperty(Widget_TimerButton_1, "onLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerButton_1, "offLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerInput_1, "label", "TIMER 1 (WATER & SPRAY)");
+    Blynk.setProperty(Widget_TimerButton_1, "onLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerButton_1, "offLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerInput_1, "label", "TIMER 1 (ZONE1 & ZONE2)");
 
   } else if (timer1Work == 2) {
-    Blynk.setProperty(Widget_TimerButton_1, "onLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerButton_1, "offLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerInput_1, "label", "TIMER 1 (WATER ONLY)");
+    Blynk.setProperty(Widget_TimerButton_1, "onLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerButton_1, "offLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerInput_1, "label", "TIMER 1 (ZONE1 ONLY)");
 
   } else if (timer1Work == 3) {
-    Blynk.setProperty(Widget_TimerButton_1, "onLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerButton_1, "offLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerInput_1, "label", "TIMER 1 (SPRAY ONLY)");
+    Blynk.setProperty(Widget_TimerButton_1, "onLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerButton_1, "offLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerInput_1, "label", "TIMER 1 (ZONE2 ONLY)");
   }
 }
 
@@ -247,19 +267,19 @@ void timer2Label() {
     Blynk.setProperty(Widget_TimerButton_2, "offLabel", "OFF");
     Blynk.setProperty(Widget_TimerInput_2, "label", "TIMER 2 (OFF)");
   } else if (timer2Work == 1) {
-    Blynk.setProperty(Widget_TimerButton_2, "onLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerButton_2, "offLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerInput_2, "label", "TIMER 2 (WATER & SPRAY)");
+    Blynk.setProperty(Widget_TimerButton_2, "onLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerButton_2, "offLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerInput_2, "label", "TIMER 2 (ZONE1 & ZONE2)");
 
   } else if (timer2Work == 2) {
-    Blynk.setProperty(Widget_TimerButton_2, "onLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerButton_2, "offLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerInput_2, "label", "TIMER 2 (WATER ONLY)");
+    Blynk.setProperty(Widget_TimerButton_2, "onLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerButton_2, "offLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerInput_2, "label", "TIMER 2 (ZONE1 ONLY)");
 
   } else if (timer2Work == 3) {
-    Blynk.setProperty(Widget_TimerButton_2, "onLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerButton_2, "offLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerInput_2, "label", "TIMER 2 (SPRAY ONLY)");
+    Blynk.setProperty(Widget_TimerButton_2, "onLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerButton_2, "offLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerInput_2, "label", "TIMER 2 (ZONE2 ONLY)");
   }
 }
 
@@ -269,19 +289,19 @@ void timer3Label() {
     Blynk.setProperty(Widget_TimerButton_3, "offLabel", "OFF");
     Blynk.setProperty(Widget_TimerInput_3, "label", "TIMER 3 (OFF)");
   } else if (timer3Work == 1) {
-    Blynk.setProperty(Widget_TimerButton_3, "onLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerButton_3, "offLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerInput_3, "label", "TIMER 3 (WATER & SPRAY)");
+    Blynk.setProperty(Widget_TimerButton_3, "onLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerButton_3, "offLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerInput_3, "label", "TIMER 3 (ZONE1 & ZONE2)");
 
   } else if (timer3Work == 2) {
-    Blynk.setProperty(Widget_TimerButton_3, "onLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerButton_3, "offLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerInput_3, "label", "TIMER 3 (WATER ONLY)");
+    Blynk.setProperty(Widget_TimerButton_3, "onLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerButton_3, "offLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerInput_3, "label", "TIMER 3 (ZONE1 ONLY)");
 
   } else if (timer3Work == 3) {
-    Blynk.setProperty(Widget_TimerButton_3, "onLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerButton_3, "offLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerInput_3, "label", "TIMER 3 (SPRAY ONLY)");
+    Blynk.setProperty(Widget_TimerButton_3, "onLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerButton_3, "offLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerInput_3, "label", "TIMER 3 (ZONE2 ONLY)");
   }
 }
 
@@ -291,19 +311,19 @@ void timer4Label() {
     Blynk.setProperty(Widget_TimerButton_4, "offLabel", "OFF");
     Blynk.setProperty(Widget_TimerInput_4, "label", "TIMER 4 (OFF)");
   } else if (timer4Work == 1) {
-    Blynk.setProperty(Widget_TimerButton_4, "onLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerButton_4, "offLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerInput_4, "label", "TIMER 4 (WATER & SPRAY)");
+    Blynk.setProperty(Widget_TimerButton_4, "onLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerButton_4, "offLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerInput_4, "label", "TIMER 4 (ZONE1 & ZONE2)");
 
   } else if (timer4Work == 2) {
-    Blynk.setProperty(Widget_TimerButton_4, "onLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerButton_4, "offLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerInput_4, "label", "TIMER 4 (WATER ONLY)");
+    Blynk.setProperty(Widget_TimerButton_4, "onLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerButton_4, "offLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerInput_4, "label", "TIMER 4 (ZONE1 ONLY)");
 
   } else if (timer4Work == 3) {
-    Blynk.setProperty(Widget_TimerButton_4, "onLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerButton_4, "offLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerInput_4, "label", "TIMER 4 (SPRAY ONLY)");
+    Blynk.setProperty(Widget_TimerButton_4, "onLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerButton_4, "offLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerInput_4, "label", "TIMER 4 (ZONE2 ONLY)");
   }
 }
 
@@ -313,19 +333,19 @@ void timer5Label() {
     Blynk.setProperty(Widget_TimerButton_5, "offLabel", "OFF");
     Blynk.setProperty(Widget_TimerInput_5, "label", "TIMER 5 (OFF)");
   } else if (timer5Work == 1) {
-    Blynk.setProperty(Widget_TimerButton_5, "onLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerButton_5, "offLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerInput_5, "label", "TIMER 5 (WATER & SPRAY)");
+    Blynk.setProperty(Widget_TimerButton_5, "onLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerButton_5, "offLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerInput_5, "label", "TIMER 5 (ZONE1 & ZONE2)");
 
   } else if (timer5Work == 2) {
-    Blynk.setProperty(Widget_TimerButton_5, "onLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerButton_5, "offLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerInput_5, "label", "TIMER 5 (WATER ONLY)");
+    Blynk.setProperty(Widget_TimerButton_5, "onLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerButton_5, "offLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerInput_5, "label", "TIMER 5 (ZONE1 ONLY)");
 
   } else if (timer5Work == 3) {
-    Blynk.setProperty(Widget_TimerButton_5, "onLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerButton_5, "offLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerInput_5, "label", "TIMER 5 (SPRAY ONLY)");
+    Blynk.setProperty(Widget_TimerButton_5, "onLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerButton_5, "offLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerInput_5, "label", "TIMER 5 (ZONE2 ONLY)");
   }
 }
 
@@ -335,19 +355,19 @@ void timer6Label() {
     Blynk.setProperty(Widget_TimerButton_6, "offLabel", "OFF");
     Blynk.setProperty(Widget_TimerInput_6, "label", "TIMER 6 (OFF)");
   } else if (timer6Work == 1) {
-    Blynk.setProperty(Widget_TimerButton_6, "onLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerButton_6, "offLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerInput_6, "label", "TIMER 6 (WATER & SPRAY)");
+    Blynk.setProperty(Widget_TimerButton_6, "onLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerButton_6, "offLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerInput_6, "label", "TIMER 6 (ZONE1 & ZONE2)");
 
   } else if (timer6Work == 2) {
-    Blynk.setProperty(Widget_TimerButton_6, "onLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerButton_6, "offLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerInput_6, "label", "TIMER 6 (WATER ONLY)");
+    Blynk.setProperty(Widget_TimerButton_6, "onLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerButton_6, "offLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerInput_6, "label", "TIMER 6 (ZONE1 ONLY)");
 
   } else if (timer6Work == 3) {
-    Blynk.setProperty(Widget_TimerButton_6, "onLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerButton_6, "offLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerInput_6, "label", "TIMER 6 (SPRAY ONLY)");
+    Blynk.setProperty(Widget_TimerButton_6, "onLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerButton_6, "offLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerInput_6, "label", "TIMER 6 (ZONE2 ONLY)");
   }
 }
 
@@ -357,19 +377,19 @@ void timer7Label() {
     Blynk.setProperty(Widget_TimerButton_7, "offLabel", "OFF");
     Blynk.setProperty(Widget_TimerInput_7, "label", "TIMER 7 (OFF)");
   } else if (timer7Work == 1) {
-    Blynk.setProperty(Widget_TimerButton_7, "onLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerButton_7, "offLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerInput_7, "label", "TIMER 7 (WATER & SPRAY)");
+    Blynk.setProperty(Widget_TimerButton_7, "onLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerButton_7, "offLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerInput_7, "label", "TIMER 7 (ZONE1 & ZONE2)");
 
   } else if (timer7Work == 2) {
-    Blynk.setProperty(Widget_TimerButton_7, "onLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerButton_7, "offLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerInput_7, "label", "TIMER 7 (WATER ONLY)");
+    Blynk.setProperty(Widget_TimerButton_7, "onLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerButton_7, "offLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerInput_7, "label", "TIMER 7 (ZONE1 ONLY)");
 
   } else if (timer7Work == 3) {
-    Blynk.setProperty(Widget_TimerButton_7, "onLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerButton_7, "offLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerInput_7, "label", "TIMER 7 (SPRAY ONLY)");
+    Blynk.setProperty(Widget_TimerButton_7, "onLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerButton_7, "offLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerInput_7, "label", "TIMER 7 (ZONE2 ONLY)");
   }
 }
 
@@ -379,18 +399,18 @@ void timer8Label() {
     Blynk.setProperty(Widget_TimerButton_8, "offLabel", "OFF");
     Blynk.setProperty(Widget_TimerInput_8, "label", "TIMER 8 (OFF)");
   } else if (timer8Work == 1) {
-    Blynk.setProperty(Widget_TimerButton_8, "onLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerButton_8, "offLabel", "WATER&SPRAY");
-    Blynk.setProperty(Widget_TimerInput_8, "label", "TIMER 8 (WATER & SPRAY)");
+    Blynk.setProperty(Widget_TimerButton_8, "onLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerButton_8, "offLabel", "ZONE1&ZONE2");
+    Blynk.setProperty(Widget_TimerInput_8, "label", "TIMER 8 (ZONE1 & ZONE2)");
 
   } else if (timer8Work == 2) {
-    Blynk.setProperty(Widget_TimerButton_8, "onLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerButton_8, "offLabel", "WATER ONLY");
-    Blynk.setProperty(Widget_TimerInput_8, "label", "TIMER 8 (WATER ONLY)");
+    Blynk.setProperty(Widget_TimerButton_8, "onLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerButton_8, "offLabel", "ZONE1 ONLY");
+    Blynk.setProperty(Widget_TimerInput_8, "label", "TIMER 8 (ZONE1 ONLY)");
 
   } else if (timer8Work == 3) {
-    Blynk.setProperty(Widget_TimerButton_8, "onLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerButton_8, "offLabel", "SPRAY ONLY");
-    Blynk.setProperty(Widget_TimerInput_8, "label", "TIMER 8 (SPRAY ONLY)");
+    Blynk.setProperty(Widget_TimerButton_8, "onLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerButton_8, "offLabel", "ZONE2 ONLY");
+    Blynk.setProperty(Widget_TimerInput_8, "label", "TIMER 8 (ZONE2 ONLY)");
   }
 }
