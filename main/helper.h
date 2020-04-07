@@ -5,11 +5,11 @@
 
 //define physical button
 #ifdef PHYBUTTON
-  //define zoneButton
-  #define zone1Button 22
-  #define zone2Button 21
-  #define zone3Button 32
-  #define zone4Button 33
+//define zoneButton
+#define zone1Button 22
+#define zone2Button 21
+#define zone3Button 32
+#define zone4Button 33
 #endif
 
 //define zoneValve
@@ -20,8 +20,8 @@
 
 //xoxo
 #ifdef PHYBUTTON
-  #define manualButton 33  //33
-  #define modeButton 14  //32
+#define manualButton 33  //33
+#define modeButton 14  //32
 #endif
 //oxox
 
@@ -127,35 +127,35 @@
 
 #ifdef ILI9341
 
-  //define tft
-  #define TFT_DC 4
-  #define TFT_CS 15
-  #define TFT_RST 2
-  #define TFT_MISO 19         
-  #define TFT_MOSI 23           
-  #define TFT_CLK 18
-  
-  //vcc gnd cs reset d/c mosi sck led miso
-  //        13 14    25  27   5       19
-  
-  // *** Define Name of Color
-  #define BLACK   0x0000
-  #define WHITE   0xFFFF
-  #define RED     0xF800
-  #define GREEN   0x07E0
-  #define BLUE    0x001F
-  #define CYAN    0x07FF
-  #define MAGENTA 0xF81F
-  #define YELLOW  0xFFE0
-  #define GREY    0x2108
-  
-  // Meter colour schemes
-  #define RED2RED 0
-  #define GREEN2GREEN 1
-  #define BLUE2BLUE 35
-  #define BLUE2RED 3
-  #define GREEN2RED 34
-  #define RED2GREEN 5
-  
-  Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_MOSI, TFT_CLK, TFT_RST, TFT_MISO);
+//define tft
+#define TFT_DC 4
+#define TFT_CS 15
+#define TFT_RST 2
+#define TFT_MISO 19
+#define TFT_MOSI 23
+#define TFT_CLK 18
+
+//vcc gnd cs reset d/c mosi sck led miso
+//        13 14    25  27   5       19
+
+// *** Define Name of Color
+#define BLACK   0x0000
+#define WHITE   0xFFFF
+#define RED     0xF800
+#define GREEN   0x07E0
+#define BLUE    0x001F
+#define CYAN    0x07FF
+#define MAGENTA 0xF81F
+#define YELLOW  0xFFE0
+#define GREY    0x2108
+
+// Meter colour schemes
+#define RED2RED 0
+#define GREEN2GREEN 1
+#define BLUE2BLUE 35
+#define BLUE2RED 3
+#define GREEN2RED 34
+#define RED2GREEN 5
+
+Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_MOSI, TFT_CLK, TFT_RST, TFT_MISO);
 #endif

@@ -54,12 +54,14 @@ BLYNK_WRITE(Widget_WaterSprayDurationSetSlide) {  //water time duration set
 }
 
 BLYNK_WRITE(Widget_Zone1Button) {  //zone1 manual button
-  if ( modeSelect != 1 ) { return; }  //If not in manual mode ignore control from app
+  if ( modeSelect != 1 ) {
+    return;  //If not in manual mode ignore control from app
+  }
   forceStopAllTimer();
   resetTerminal();
   if (param.asInt() == 1) {
     modeSelect = 1;
-    
+
     zone1ValveStatus = 1;
     modeLabel();
   } else {
@@ -71,7 +73,9 @@ BLYNK_WRITE(Widget_Zone1Button) {  //zone1 manual button
 }
 
 BLYNK_WRITE(Widget_Zone2Button) {  //zone2 manual button
-  if ( modeSelect != 1 ) { return; }  //If not in manual mode ignore control from app
+  if ( modeSelect != 1 ) {
+    return;  //If not in manual mode ignore control from app
+  }
   forceStopAllTimer();
   resetTerminal();
   if (param.asInt() == 1) {
@@ -88,7 +92,9 @@ BLYNK_WRITE(Widget_Zone2Button) {  //zone2 manual button
 }
 
 BLYNK_WRITE(Widget_Zone3Button) {  //zone3 manual button
-  if ( modeSelect != 1 ) { return; }  //If not in manual mode ignore control from app
+  if ( modeSelect != 1 ) {
+    return;  //If not in manual mode ignore control from app
+  }
   forceStopAllTimer();
   resetTerminal();
   if (param.asInt() == 1) {
@@ -105,7 +111,9 @@ BLYNK_WRITE(Widget_Zone3Button) {  //zone3 manual button
 }
 
 BLYNK_WRITE(Widget_Zone4Button) {  //zone4 manual button
-  if ( modeSelect != 1 ) { return; }  //If not in manual mode ignore control from app
+  if ( modeSelect != 1 ) {
+    return;  //If not in manual mode ignore control from app
+  }
   forceStopAllTimer();
   resetTerminal();
   if (param.asInt() == 1) {
@@ -228,9 +236,18 @@ void resetTerminal() {
 }
 
 void modeLabel() {
-  if (modeSelect == 1) { Blynk.virtualWrite(Widget_ModeDisplay,"MANUAL"); Blynk.virtualWrite(Widget_ManualControlDisplay,"Push Button"); } 
-  else if (modeSelect == 2) { Blynk.virtualWrite(Widget_ModeDisplay,"AUTO"); Blynk.virtualWrite(Widget_ManualControlDisplay,"Button not response if not within manual mode"); } 
-  else if (modeSelect == 3) { Blynk.virtualWrite(Widget_ModeDisplay,"TIMER"); Blynk.virtualWrite(Widget_ManualControlDisplay,"Button not response if not within manual mode"); }
+  if (modeSelect == 1) {
+    Blynk.virtualWrite(Widget_ModeDisplay, "MANUAL");
+    Blynk.virtualWrite(Widget_ManualControlDisplay, "Push Button");
+  }
+  else if (modeSelect == 2) {
+    Blynk.virtualWrite(Widget_ModeDisplay, "AUTO");
+    Blynk.virtualWrite(Widget_ManualControlDisplay, "Button not response if not within manual mode");
+  }
+  else if (modeSelect == 3) {
+    Blynk.virtualWrite(Widget_ModeDisplay, "TIMER");
+    Blynk.virtualWrite(Widget_ManualControlDisplay, "Button not response if not within manual mode");
+  }
 
   Blynk.virtualWrite(Widget_Zone1Button, zone1ValveStatus);
   Blynk.virtualWrite(Widget_Zone2Button, zone2ValveStatus);

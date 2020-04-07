@@ -5,11 +5,11 @@ void timerCheck() {
   if (modeSelect == 3) {
 
     if ((timer1On && timer1Zone1Status) || (timer2On && timer2Zone1Status) || (timer3On && timer3Zone1Status) || (timer4On && timer4Zone1Status) || (timer5On && timer5Zone1Status) || (timer6On && timer6Zone1Status) || (timer7On && timer7Zone1Status) || (timer8On && timer8Zone1Status)) {
-      zone1ValveStatus = 1;      
+      zone1ValveStatus = 1;
     }
 
     if ((timer1On && timer1Zone2Status) || (timer2On && timer2Zone2Status) || (timer3On && timer3Zone2Status) || (timer4On && timer4Zone2Status) || (timer5On && timer5Zone2Status) || (timer6On && timer6Zone2Status) || (timer7On && timer7Zone2Status) || (timer8On && timer8Zone2Status)) {
-      zone2ValveStatus = 1;      
+      zone2ValveStatus = 1;
     }
 
     if ((timer1Zone1Status == 0) && (timer2Zone1Status == 0) && (timer3Zone1Status == 0) && (timer4Zone1Status == 0) && (timer5Zone1Status == 0) && (timer6Zone1Status == 0) && (timer7Zone1Status == 0) && (timer8Zone1Status == 0)) {

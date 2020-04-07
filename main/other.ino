@@ -3,35 +3,63 @@
 
 void getTime() {
 
-  displayYear =   String(year(), DEC);
-  displayYear =   displayYear.substring(2, 4);
+  //https://lastminuteengineers.com/esp32-ntp-server-date-time-tutorial/
+  //https://randomnerdtutorials.com/esp32-ntp-client-date-time-arduino-ide/
 
-  int gmMonth = month();
-  displayMonth =   String(gmMonth, DEC);
-  int monthdigits = displayMonth.length();
-  if (monthdigits == 1) displayMonth = "0" + displayMonth;
+  struct tm timeinfo;
+  if (!getLocalTime(&timeinfo)) {
+    Serial.println("Failed to obtain time");
+    return;
+  }
+  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
 
-  int gmDayOfMonth = day();
-  displayDayOfMonth =   String(gmDayOfMonth, DEC);
-  int daydigits = displayDayOfMonth.length();
-  if (daydigits == 1) displayDayOfMonth = "0" + displayDayOfMonth;
+  /*
+    %A  returns day of week
+    %B  returns month of year
+    %d  returns day of month
+    %Y  returns year
+    %H  returns hour
+    %M  returns minutes
+    %S  returns seconds
+  */
 
-  int gmthour = hour();
-  if (gmthour == 24) gmthour = 0;
-  displayHour =   String(gmthour, DEC);
-  int hourdigits = displayHour.length();
-  if (hourdigits == 1) displayHour = "0" + displayHour;
+  String xoxo = (timeinfo, "%A, %B %d %Y %H:%M:%S");
+//  displayYear = String(&timeinfo, "%Y");
+//  displayMonth = String(&timeinfo, "%B");
+//  displayDayOfMonth = String(&timeinfo, "%d");
+  Serial.print("xo : ");Serial.println(xoxo);
 
-  displayMinute = String(minute(), DEC);
-  int minutedigits = displayMinute.length();
-  if (minutedigits == 1) displayMinute = "0" + displayMinute;
+  /*xoxo  displayYear =   String(year(), DEC);
+    displayYear =   displayYear.substring(2, 4);
+
+    int gmMonth = month();
+    displayMonth =   String(gmMonth, DEC);
+    int monthdigits = displayMonth.length();
+    if (monthdigits == 1) displayMonth = "0" + displayMonth;
+
+    int gmDayOfMonth = day();
+    displayDayOfMonth =   String(gmDayOfMonth, DEC);
+    int daydigits = displayDayOfMonth.length();
+    if (daydigits == 1) displayDayOfMonth = "0" + displayDayOfMonth;
+
+    int gmthour = hour();
+    if (gmthour == 24) gmthour = 0;
+    displayHour =   String(gmthour, DEC);
+    int hourdigits = displayHour.length();
+    if (hourdigits == 1) displayHour = "0" + displayHour;
+
+    displayMinute = String(minute(), DEC);
+    int minutedigits = displayMinute.length();
+    if (minutedigits == 1) displayMinute = "0" + displayMinute;
+    oxox*/
 
 #ifdef ILI9341
 
   tft.setCursor(70, 47);
   tft.setTextColor(GREEN, BLACK);
   tft.setTextSize(1);
-  tft.print(Day[weekday()]);
+  //tft.print(Day[weekday()]);
+  //tft.print(getLocalTime(&timeinfo, "%A"));
   tft.print(" ");
   tft.print(displayDayOfMonth);
   tft.print("/");
@@ -257,129 +285,146 @@ void resetSensor() {
 #ifdef PHYBUTTON
 void modeButtonCheck() {
   int Mode;
- 
-    if (digitalRead(manualSwitch) == LOW ) { Mode = 1; }
-    else if (digitalRead(autoSwitch) == LOW ){ Mode = 2; }
-    else { Mode = 3; }
-    
-    // It have change Mode
-    if ( Mode != oldModeButtonState){
-      delay(10);
-      forceStopAllTimer();
-      closeAllValve();
-      resetTerminal();
-      modeSelect = Mode;
-      modeLabel();
-      if ( Mode == 1 ) { Serial.println("Change mode to : Manual"); }
-      else if ( Mode == 2 ) { Serial.println("Change mode to : Auto"); }
-      else if ( Mode == 3 ) { Serial.println("Change mode to : Timer"); }
-    }
-    oldModeButtonState = Mode;
-/*xoxo  if ((dataModeButton == 0) && (oldModeButtonState == 1)) {
+
+  if (digitalRead(manualSwitch) == LOW ) {
+    Mode = 1;
+  }
+  else if (digitalRead(autoSwitch) == LOW ) {
+    Mode = 2;
+  }
+  else {
+    Mode = 3;
+  }
+
+  // It have change Mode
+  if ( Mode != oldModeButtonState) {
     delay(10);
-    if (digitalRead(modeButton) == 0) {
-      forceStopAllTimer();
-      closeAllValve();
-      resetTerminal();
-      modeSelect++;
-      if (modeSelect >= 4) modeSelect = 1;
-      modeLabel();
-      Serial.println("mode button");
+    forceStopAllTimer();
+    closeAllValve();
+    resetTerminal();
+    modeSelect = Mode;
+    modeLabel();
+    if ( Mode == 1 ) {
+      Serial.println("Change mode to : Manual");
+    }
+    else if ( Mode == 2 ) {
+      Serial.println("Change mode to : Auto");
+    }
+    else if ( Mode == 3 ) {
+      Serial.println("Change mode to : Timer");
     }
   }
-  oldModeButtonState = dataModeButton;
-oxox*/
+  oldModeButtonState = Mode;
+  /*xoxo  if ((dataModeButton == 0) && (oldModeButtonState == 1)) {
+      delay(10);
+      if (digitalRead(modeButton) == 0) {
+        forceStopAllTimer();
+        closeAllValve();
+        resetTerminal();
+        modeSelect++;
+        if (modeSelect >= 4) modeSelect = 1;
+        modeLabel();
+        Serial.println("mode button");
+      }
+    }
+    oldModeButtonState = dataModeButton;
+    oxox*/
 }
 
 void manualButtonCheck() {
   if ((digitalRead(zone1Button) == LOW) || (digitalRead(zone2Button) == LOW)
       || (digitalRead(zone3Button) == LOW) || (digitalRead(zone4Button) == LOW)) {
-        
-        Serial.print("zone1Button : ");
-        Serial.println(digitalRead(zone1Button));
-        Serial.print("zone2Button : ");
-        Serial.println(digitalRead(zone2Button));
-        Serial.print("zone3Button : ");
-        Serial.println(digitalRead(zone3Button));
-        Serial.print("zone4Button : ");
-        Serial.println(digitalRead(zone4Button));
-        
+
+    Serial.print("zone1Button : ");
+    Serial.println(digitalRead(zone1Button));
+    Serial.print("zone2Button : ");
+    Serial.println(digitalRead(zone2Button));
+    Serial.print("zone3Button : ");
+    Serial.println(digitalRead(zone3Button));
+    Serial.print("zone4Button : ");
+    Serial.println(digitalRead(zone4Button));
+
     if (buttonActive == 0) {
       buttonActive = 1;
       buttonTimer = millis();
     }
-    if ((millis() - buttonTimer > longPressTime) && (longPressActive == 0)) { longPressActive = 1; return; } //Hold Button do nothings
+    if ((millis() - buttonTimer > longPressTime) && (longPressActive == 0)) {
+      longPressActive = 1;  //Hold Button do nothings
+      return;
+    }
     else {
-          if (buttonActive == 1) {
-              if (longPressActive == 1) { longPressActive = 0; } 
-              else if (digitalRead(zone1Button) == LOW) {  
-                        forceStopAllTimer();
-                        resetTerminal();
-                        if (zone1ValveStatus == 1) {
-                          modeSelect = 1;
-                          zone1ValveStatus = 0;
-                                        
-                          modeLabel();
-                      } else {
-                        modeSelect = 1;
-                                      
-                        zone1ValveStatus = 1;
-                        modeLabel();
-                        }
-                        Serial.println("Activate : zone1");               
-              }
-              else if (digitalRead(zone2Button) == LOW) {  
-                        forceStopAllTimer();
-                        resetTerminal();
-                        if (zone2ValveStatus == 1) {
-                          modeSelect = 1;
-                          zone2ValveStatus = 0;
-                                        
-                          modeLabel();
-                      } else {
-                        modeSelect = 1;
-                                      
-                        zone2ValveStatus = 1;
-                        modeLabel();
-                        }
-                        Serial.println("Activate : zone2");
-               }
-               else if (digitalRead(zone3Button) == LOW) {  
-                        forceStopAllTimer();
-                        resetTerminal();
-                        if (zone3ValveStatus == 1) {
-                          modeSelect = 1;
-                          zone3ValveStatus = 0;
-                                      
-                          modeLabel();
-                      } else {
-                        modeSelect = 1;
-                                      
-                        zone3ValveStatus = 1;
-                        modeLabel();
-                        }
-                        Serial.println("Activate : zone3");
-               }
-               else if (digitalRead(zone4Button) == LOW) {  
-                        forceStopAllTimer();
-                        resetTerminal();
-                        if (zone4ValveStatus == 1) {
-                          modeSelect = 1;
-                          zone4ValveStatus = 0;
-                                        
-                          modeLabel();
-                      } else {
-                        modeSelect = 1;
-                                      
-                        zone4ValveStatus = 1;
-                        modeLabel();
-                        }
-                        Serial.println("Activate : zone4");
-               } 
-          }        
+      if (buttonActive == 1) {
+        if (longPressActive == 1) {
+          longPressActive = 0;
+        }
+        else if (digitalRead(zone1Button) == LOW) {
+          forceStopAllTimer();
+          resetTerminal();
+          if (zone1ValveStatus == 1) {
+            modeSelect = 1;
+            zone1ValveStatus = 0;
+
+            modeLabel();
+          } else {
+            modeSelect = 1;
+
+            zone1ValveStatus = 1;
+            modeLabel();
+          }
+          Serial.println("Activate : zone1");
+        }
+        else if (digitalRead(zone2Button) == LOW) {
+          forceStopAllTimer();
+          resetTerminal();
+          if (zone2ValveStatus == 1) {
+            modeSelect = 1;
+            zone2ValveStatus = 0;
+
+            modeLabel();
+          } else {
+            modeSelect = 1;
+
+            zone2ValveStatus = 1;
+            modeLabel();
+          }
+          Serial.println("Activate : zone2");
+        }
+        else if (digitalRead(zone3Button) == LOW) {
+          forceStopAllTimer();
+          resetTerminal();
+          if (zone3ValveStatus == 1) {
+            modeSelect = 1;
+            zone3ValveStatus = 0;
+
+            modeLabel();
+          } else {
+            modeSelect = 1;
+
+            zone3ValveStatus = 1;
+            modeLabel();
+          }
+          Serial.println("Activate : zone3");
+        }
+        else if (digitalRead(zone4Button) == LOW) {
+          forceStopAllTimer();
+          resetTerminal();
+          if (zone4ValveStatus == 1) {
+            modeSelect = 1;
+            zone4ValveStatus = 0;
+
+            modeLabel();
+          } else {
+            modeSelect = 1;
+
+            zone4ValveStatus = 1;
+            modeLabel();
+          }
+          Serial.println("Activate : zone4");
+        }
+      }
     }
     buttonActive = 0;
-    }
+  }
 }
 #endif
 
@@ -396,12 +441,12 @@ void manualButtonCheck() {
       resetTerminal();
       if (zone2ValveStatus == 1) {
         modeSelect = 1;
-        zone2ValveStatus = 0;       
+        zone2ValveStatus = 0;
 
         modeLabel();
       } else {
         modeSelect = 1;
-        
+
         zone2ValveStatus = 1;
         modeLabel();
       }
@@ -418,11 +463,11 @@ void manualButtonCheck() {
         if (zone1ValveStatus == 1) {
           modeSelect = 1;
           zone1ValveStatus = 0;
-        
+
           modeLabel();
         } else {
           modeSelect = 1;
-        
+
           zone1ValveStatus = 1;
           modeLabel();
         }
@@ -431,5 +476,5 @@ void manualButtonCheck() {
       buttonActive = 0;
     }
   }
-}
-#endif oxox*/
+  }
+  #endif oxox*/

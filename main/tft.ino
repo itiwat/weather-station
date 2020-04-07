@@ -393,7 +393,7 @@ void displayClock() {
 
 void displayWifi() {
   int wifiDisplay = WifiPercentSignal();
-  Blynk.virtualWrite(Widget_WifiDisplay,wifiDisplay);
+  Blynk.virtualWrite(Widget_WifiDisplay, wifiDisplay);
   tft.setCursor(35, 5);
   tft.setTextColor(BLUE, BLACK);
   tft.setTextSize(1);
