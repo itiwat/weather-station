@@ -42,11 +42,16 @@ Equipment Lists
 Tools
     - คีมปลอกสายไฟ (1)  134 บาท
       https://shopee.co.th/product/37738200/1250808467
+      
     - ชุดบัดกรีสายไฟ
+    
     - ดอกสว่่าน hole saw สำหรับเจาะรู 22mm
+    
     - สว่าน
+    
 
-Installation Step
+Installation Steps
+
 Manual Control
 Mobile Control
   Wiring Diagram
