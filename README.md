@@ -1,4 +1,6 @@
-# weather-station & 
+# weather-station & Water Controll
+
+    
 
     
 
@@ -50,6 +52,7 @@ Tools
     
 
 Installation Steps
+
 /* Manual Control
 Mobile Control
   Wiring Diagram
