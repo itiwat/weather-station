@@ -15,6 +15,7 @@ Equipment Lists
 4. Lamp LED 22mm           (4)  13 บาท/ตัว
     https://shopee.co.th/product/129139583/7112969459
 5. Power Source
+
     Option#1: Battery
       - แผง Solarcell 60W 18V   (1)
       - Solar charge controller 10A-30A (1)
