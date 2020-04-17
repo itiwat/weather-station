@@ -1,4 +1,4 @@
-# weather-station & Water Controll
+# Water Controll & Weather Station
 
     
 
