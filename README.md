@@ -39,6 +39,7 @@ Equipment Lists
       https://th.aliexpress.com/item/32960934541.html?spm=a2g0s.9042311.0.0.27424c4d8HFc1r
 13. PCB Pin ตัวเมีย
       https://th.aliexpress.com/item/32724478308.html?spm=a2g0s.9042311.0.0.27424c4d9Yzd3k
+      https://user-images.githubusercontent.com/45023260/79547143-b578f980-80bd-11ea-8824-3844270ea216.png
       
 
       
