@@ -50,8 +50,8 @@ Tools
     
 
 Installation Steps
-
-Manual Control
+/* Manual Control
 Mobile Control
   Wiring Diagram
   
+*/
