@@ -5,14 +5,16 @@ void getTime() {
 
   //https://lastminuteengineers.com/esp32-ntp-server-date-time-tutorial/
   //https://randomnerdtutorials.com/esp32-ntp-client-date-time-arduino-ide/
+  //https://www.geeksforgeeks.org/time-h-header-file-in-c-with-examples/
 
   struct tm timeinfo;
   if (!getLocalTime(&timeinfo)) {
     Serial.println("Failed to obtain time");
     return;
   }
+  #ifdef  debugMode
   Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
-
+  #endif
   /*
     %A  returns day of week
     %B  returns month of year
@@ -21,51 +23,98 @@ void getTime() {
     %H  returns hour
     %M  returns minutes
     %S  returns seconds
+
+    asctime()   This function returns the date and time in the format
+                day month date hours:minutes:seconds year.
+                Eg: Sat Jul 27 11:26:03 2019.
+    asctime() function returns a string by taking struct tm variable as a parameter.
   */
 
-  String xoxo = (timeinfo, "%A, %B %d %Y %H:%M:%S");
-//  displayYear = String(&timeinfo, "%Y");
-//  displayMonth = String(&timeinfo, "%B");
-//  displayDayOfMonth = String(&timeinfo, "%d");
-  Serial.print("xo : ");Serial.println(xoxo);
+  //Dummy Time Varible
+  String Time = asctime(&timeinfo);
+  int n = Time.length();
+  // declaring character array
+  char char_array[n + 1];
+  // copying the contents of the string to char array
+  strcpy(char_array, Time.c_str());
 
-  /*xoxo  displayYear =   String(year(), DEC);
-    displayYear =   displayYear.substring(2, 4);
+  //http://www.cplusplus.com/reference/cstring/strtok/
+  //Splitting string into tokens
+  char * pch;
+  int counter = 0;
 
-    int gmMonth = month();
-    displayMonth =   String(gmMonth, DEC);
-    int monthdigits = displayMonth.length();
-    if (monthdigits == 1) displayMonth = "0" + displayMonth;
+  pch = strtok (char_array, " :");
+  while (pch != NULL)
+  {
+    //Eg: Sat Jul 27 11:26:03 2019.
+    if ( counter == 0 ) {
+      display_dayofweek = String(pch);
+    }
+    if ( counter == 1 ) {
+      display_monthofyear = String(pch);
+    }
+    if ( counter == 2 ) {
+      display_dayofmonth = String(pch);
+    }
+    if ( counter == 3 ) {
+      display_hour = String(pch);
+    }
+    if ( counter == 4 ) {
+      display_minutes = String(pch);
+    }
+    if ( counter == 5 ) {
+      display_seconds = String(pch);
+    }
+    if ( counter == 6 ) {
+      display_year = String(pch);
+    }
+    #ifdef  debugMode
+    Serial.println(pch);
+    #endif
+    pch = strtok (NULL, " :");
+    counter++;
+  }
 
-    int gmDayOfMonth = day();
-    displayDayOfMonth =   String(gmDayOfMonth, DEC);
-    int daydigits = displayDayOfMonth.length();
-    if (daydigits == 1) displayDayOfMonth = "0" + displayDayOfMonth;
+  int dummymonth;
+  if ( display_monthofyear == "Jan" ) { dummymonth = 1; }
+    else if ( display_monthofyear == "Feb" ) { dummymonth = 2; }
+    else if ( display_monthofyear == "Mar" ) { dummymonth = 3; }
+    else if ( display_monthofyear == "Apr" ) { dummymonth = 4; }
+    else if ( display_monthofyear == "May" ) { dummymonth = 5; }
+    else if ( display_monthofyear == "Jun" ) { dummymonth = 6; }
+    else if ( display_monthofyear == "Jul" ) { dummymonth = 7; }
+    else if ( display_monthofyear == "Aug" ) { dummymonth = 8; }
+    else if ( display_monthofyear == "Sep" ) { dummymonth = 9; }
+    else if ( display_monthofyear == "Oct" ) { dummymonth = 10; }
+    else if ( display_monthofyear == "Nov" ) { dummymonth = 11; }
+    else if ( display_monthofyear == "Dec" ) { dummymonth = 12; }
+    else { dummymonth = 0; }
 
-    int gmthour = hour();
-    if (gmthour == 24) gmthour = 0;
-    displayHour =   String(gmthour, DEC);
-    int hourdigits = displayHour.length();
-    if (hourdigits == 1) displayHour = "0" + displayHour;
-
-    displayMinute = String(minute(), DEC);
-    int minutedigits = displayMinute.length();
-    if (minutedigits == 1) displayMinute = "0" + displayMinute;
-    oxox*/
-
+  //Set hour, minute, second, day, month and year of the RTC
+  //void setTime(int hour, int minute, int second, int day, int month, int year)
+  setTime(display_hour.toInt(), display_minutes.toInt(), display_seconds.toInt(), display_dayofmonth.toInt(), dummymonth, display_year.toInt());
+#ifdef  debugMode
+  Serial.print("Time : "); Serial.println(Time);
+  Serial.print("weekday : "); Serial.println(weekday());
+  Serial.print("hour : "); Serial.println(hour());
+  Serial.print("min : "); Serial.println(minute());
+  Serial.print("sec : "); Serial.println(second());
+  Serial.print("day : "); Serial.println(day());
+  Serial.print("month : "); Serial.println(month());
+  Serial.print("year : "); Serial.println(year());
+#endif
 #ifdef ILI9341
 
-  tft.setCursor(70, 47);
+  tft.setCursor(5, 5);
   tft.setTextColor(GREEN, BLACK);
   tft.setTextSize(1);
-  //tft.print(Day[weekday()]);
-  //tft.print(getLocalTime(&timeinfo, "%A"));
+  tft.print(display_dayofweek);
   tft.print(" ");
-  tft.print(displayDayOfMonth);
+  tft.print(display_dayofmonth);
   tft.print("/");
-  tft.print(displayMonth);
+  tft.print(display_monthofyear);
   tft.print("/");
-  tft.print(displayYear);
+  tft.print(display_year);
 
 #endif
 
@@ -315,26 +364,13 @@ void modeButtonCheck() {
     }
   }
   oldModeButtonState = Mode;
-  /*xoxo  if ((dataModeButton == 0) && (oldModeButtonState == 1)) {
-      delay(10);
-      if (digitalRead(modeButton) == 0) {
-        forceStopAllTimer();
-        closeAllValve();
-        resetTerminal();
-        modeSelect++;
-        if (modeSelect >= 4) modeSelect = 1;
-        modeLabel();
-        Serial.println("mode button");
-      }
-    }
-    oldModeButtonState = dataModeButton;
-    oxox*/
 }
 
 void manualButtonCheck() {
   if ((digitalRead(zone1Button) == LOW) || (digitalRead(zone2Button) == LOW)
       || (digitalRead(zone3Button) == LOW) || (digitalRead(zone4Button) == LOW)) {
 
+#ifdef  debugMode
     Serial.print("zone1Button : ");
     Serial.println(digitalRead(zone1Button));
     Serial.print("zone2Button : ");
@@ -343,7 +379,7 @@ void manualButtonCheck() {
     Serial.println(digitalRead(zone3Button));
     Serial.print("zone4Button : ");
     Serial.println(digitalRead(zone4Button));
-
+#endif
     if (buttonActive == 0) {
       buttonActive = 1;
       buttonTimer = millis();
@@ -427,54 +463,3 @@ void manualButtonCheck() {
   }
 }
 #endif
-
-/*xoxo
-  void manualButtonCheck() {
-  if (digitalRead(manualButton) == LOW) {
-    if (buttonActive == 0) {
-      buttonActive = 1;
-      buttonTimer = millis();
-    }
-    if ((millis() - buttonTimer > longPressTime) && (longPressActive == 0)) {
-      longPressActive = 1;
-      forceStopAllTimer();
-      resetTerminal();
-      if (zone2ValveStatus == 1) {
-        modeSelect = 1;
-        zone2ValveStatus = 0;
-
-        modeLabel();
-      } else {
-        modeSelect = 1;
-
-        zone2ValveStatus = 1;
-        modeLabel();
-      }
-      Serial.println("zone2");
-    }
-  } else {
-    if (buttonActive == 1) {
-      if (longPressActive == 1) {
-        longPressActive = 0;
-      } else {
-
-        forceStopAllTimer();
-        resetTerminal();
-        if (zone1ValveStatus == 1) {
-          modeSelect = 1;
-          zone1ValveStatus = 0;
-
-          modeLabel();
-        } else {
-          modeSelect = 1;
-
-          zone1ValveStatus = 1;
-          modeLabel();
-        }
-        Serial.println("zone1");
-      }
-      buttonActive = 0;
-    }
-  }
-  }
-  #endif oxox*/

@@ -67,9 +67,11 @@ void updateWeather() {
     if (error) {
       Serial.print(F("deserializeJson() failed: "));
       Serial.println(error.c_str());
-      delay(120000);
+      delay(3000);
       return;
     }
+
+    sprintf(lastupdateWheather, "%02d:%02d:%02d", hour(), minute(), second());
 
     JsonObject weather_0 = doc["weather"][0];
     String weather_0_id = weather_0["id"]; // 800
@@ -106,7 +108,7 @@ void updateWeather() {
     long id = doc["id"]; // 1851632
     const char* name = doc["name"]; // "Shuzenji"
     int cod = doc["cod"]; // 200
-
+#ifdef  debugMode
     Serial.print("Weather Main : "); Serial.println(weather_0_id);
     Serial.print("Weather Main : "); Serial.println(weather_0_main);
     Serial.print("Weather Description : "); Serial.println(weather_0_description);
@@ -117,21 +119,32 @@ void updateWeather() {
     Serial.print("Humidity : "); Serial.println(main_humidity);
     Serial.print("Wind Speed : "); Serial.println(wind_speed);
     Serial.print("Wind Degree : "); Serial.println(wind_deg);
-    Serial.print("Start With 8xx : "); Serial.println(weather_0_id.startsWith("8"));
-
+    Serial.print("Start With 5xx : "); Serial.println(weather_0_id.startsWith("5"));
+#endif
     weatherMain = weather_0_id;
     weatherDescription = weather_0_description;
     weatherCity = String(name);
 
+    temperatureData = main_temp-272.15;
+    pressureData = main_pressure;
+    humidityData = main_humidity;
+    windspeedData = wind_speed;
+    Blynk.virtualWrite(Widget_WeatherLocation, weatherCity);
+    Blynk.virtualWrite(Widget_WeatherDescription, weatherDescription);
+
+    
+
     //if startWith 8xx. It have rain  (https://openweathermap.org/weather-conditions)
-    if ( (rainDelayWork == 1) && (weather_0_id.startsWith("8")) ) {
+    if ( weather_0_id.startsWith("5") ) {
       rainStatus = 1;
+      rainStatusBlynkLed.on();
     } else {
       rainStatus = 0;
+      rainStatusBlynkLed.off();
     }
-
+#ifdef  debugMode
     Serial.print("Rain Status : "); Serial.println(rainStatus);
-
+#endif
 #ifdef ILI9341
     clearScreenData();
     displayDataSensor();

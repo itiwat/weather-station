@@ -5,11 +5,13 @@
 
 //define physical button
 #ifdef PHYBUTTON
-//define zoneButton
 #define zone1Button 22
 #define zone2Button 21
 #define zone3Button 32
 #define zone4Button 33
+// define relay pins lora
+#define manualSwitch 13
+#define autoSwitch 12
 #endif
 
 //define zoneValve
@@ -17,25 +19,6 @@
 #define zone2Valve 26
 #define zone3Valve 27
 #define zone4Valve 14
-
-//xoxo
-#ifdef PHYBUTTON
-#define manualButton 33  //33
-#define modeButton 14  //32
-#endif
-//oxox
-
-// define relay pins lora
-#define manualSwitch 13
-#define autoSwitch 12
-#define waterValve 17  //water
-#define sprayValve 16  //spray
-#define valve3 4  //option
-#define valve4 27  //option
-
-//define led
-#define waterLed 22
-#define sprayLed 21
 
 //define SX1278
 #define SCK     5    // GPIO5  -- SX1278's SCK
@@ -71,15 +54,17 @@
 
 //define blynk widger
 #define Widget_Temperatuer V1
-#define Widget_Moisture V2
-#define Widget_Fertility V3
-#define Widget_Light V4
+#define Widget_Humidity V2
+#define Widget_Pressure V3
+#define Widget_Windspeed V4
 #define Widget_WifiDisplay V5
 #define Widget_ManualControlDisplay V6
+#define Widget_WeatherLocation V7
+#define Widget_WeatherDescription V8
+#define Widget_RainStatusLed V9
 
-#define Widget_SensorLabel V11
-#define Widget_RainDelayLed V12
-#define Widget_ModeDisplay V13
+#define Widget_ModeDisplay V11
+#define Widget_SensorLabel V12
 #define Widget_WaterSprayDurationSetSlide V14
 #define Widget_RainDelayButton V15
 #define Widget_LightSetSlide V16

@@ -1,6 +1,7 @@
 //**************************************************************************************************//
 //******************************************SELECT OPTION*******************************************//
 
+//#define debugMode
 #define BLYNKLOCAL  //define if use blynk local server (option)
 #define WEATHER  //define if use weather and rain delay (option)
 #define ILI9341  //define if use tftlcd (option)

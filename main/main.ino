@@ -14,12 +14,6 @@
 #include "config.h"
 #include "helper.h"
 
-/*xoxo
-   Note
-      Water=Zone1
-      Spray=Zone2
-  oxox*/
-
 int modeSelect;   //1:Manual  2:Auto  3:Timer
 int sensorRoundSet = 15;
 int temperatureSet = 32;
@@ -32,27 +26,24 @@ uint32_t longPressTime = 500;
 String timeStamp = "wait";
 String todaySchedule = "wait";
 
-char *Day[] = {" ", "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
 char Date[16];
 char Time[16];
+char lastupdateWheather[16];
 
 float temperatureData, batteryData;
+int moistureData, fertilityData, lightData;  //Not use
+int pressureData, humidityData, windspeedData;
 
 int manual_Switch, auto_Switch, oldModeButtonState;
 
-int moistureData, fertilityData, lightData, tesmod, reading, firstState, lightSetWrite, lastMode,
-    timerNumber, CurrentWifiSignal, WifiSignal, firstDisplay, msgCount, timer1Work, timer2Work,
-    timer3Work, timer4Work, timer5Work, timer6Work, timer7Work, timer8Work, mqttConnectCount,
-    connectCount;
+int tesmod, reading, firstState, lightSetWrite, lastMode,
+    timerNumber, CurrentWifiSignal, WifiSignal, firstDisplay, msgCount, 
+    timer1Work, timer2Work,timer3Work, timer4Work, timer5Work, timer6Work, timer7Work, timer8Work, 
+    mqttConnectCount, connectCount;
 
 bool sensorStatus;
 bool rainStatus, rainDelayWork, lastRainDelay;
 bool buttonActive, longPressActive, dots, firstLoop, firstRecieve, mqttUpdate;
-
-/*xoxo
-  bool waterValveStatus, waterAutoTimerWork, waterAutoTimerStatus, lastWaterValveStatus, lastWater, lastAutoWater;
-  bool sprayValveStatus, sprayAutoTimerWork, sprayAutoTimerStatus, lastSprayValveStatus, lastSpray, lastAutoSpray;
-  oxox*/
 
 bool zone1ValveStatus, zone2ValveStatus, zone3ValveStatus, zone4ValveStatus;
 bool zone1AutoTimerWork, zone2AutoTimerWork, zone3AutoTimerWork, zone4AutoTimerWork;
@@ -61,23 +52,23 @@ bool lastZone1ValveStatus, lastZone2ValveStatus, lastZone3ValveStatus, lastZone4
 bool lastZone1, lastZone2, lastZone3, lastZone4;
 bool lastAutoZone1, lastAutoZone2, lastAutoZone3, lastAutoZone4;
 
-bool timer1Zone1Status, timer1Zone2Status;
-bool timer2Zone1Status, timer2Zone2Status;
-bool timer3Zone1Status, timer3Zone2Status;
-bool timer4Zone1Status, timer4Zone2Status;
-bool timer5Zone1Status, timer5Zone2Status;
-bool timer6Zone1Status, timer6Zone2Status;
-bool timer7Zone1Status, timer7Zone2Status;
-bool timer8Zone1Status, timer8Zone2Status;
+bool timer1Zone1Status, timer1Zone2Status, timer1Zone3Status, timer1Zone4Status;
+bool timer2Zone1Status, timer2Zone2Status, timer2Zone3Status, timer2Zone4Status;
+bool timer3Zone1Status, timer3Zone2Status, timer3Zone3Status, timer3Zone4Status;
+bool timer4Zone1Status, timer4Zone2Status, timer4Zone3Status, timer4Zone4Status;
+bool timer5Zone1Status, timer5Zone2Status, timer5Zone3Status, timer5Zone4Status;
+bool timer6Zone1Status, timer6Zone2Status, timer6Zone3Status, timer6Zone4Status;
+bool timer7Zone1Status, timer7Zone2Status, timer7Zone3Status, timer7Zone4Status;
+bool timer8Zone1Status, timer8Zone2Status, timer8Zone3Status, timer8Zone4Status;
 bool timer1On, timer2On, timer3On, timer4On, timer5On, timer6On, timer7On, timer8On;
 
 uint32_t startsecondswd, stopsecondswd, nowseconds, buttonTimer, autoMillis, currentMillis,
          newMillis, sensorRoundMillis, mqttMillis, runTime;
 
-String  weatherMain, weatherDescription, weatherCity, outgoing, incoming, displayTime,
-        displayHour, displayMinute, displayDayOfMonth, displayMonth, displayYear;
+String  weatherMain, weatherDescription, weatherCity, outgoing, incoming;
 
-
+String display_dayofweek, display_monthofyear, display_dayofmonth, display_year,
+       display_hour, display_minutes, display_seconds;
 
 BlynkTimer timer;
 WidgetRTC rtc;
@@ -87,7 +78,7 @@ WidgetLED zone1BlynkLed(Widget_Zone1Led);
 WidgetLED zone2BlynkLed(Widget_Zone2Led);
 WidgetLED zone3BlynkLed(Widget_Zone3Led);
 WidgetLED zone4BlynkLed(Widget_Zone4Led);
-WidgetLED rainBlynkLed(Widget_RainDelayLed);
+WidgetLED rainStatusBlynkLed(Widget_RainStatusLed);
 
 //**************************************************************************************************//
 //*********************************************SETUP************************************************//
@@ -95,24 +86,17 @@ WidgetLED rainBlynkLed(Widget_RainDelayLed);
 void setup() {
   pinMode(manualSwitch, INPUT_PULLUP);
   pinMode(autoSwitch, INPUT_PULLUP);
-  pinMode(zone1Valve, OUTPUT); digitalWrite(zone1Valve, LOW);
-  pinMode(zone2Valve, OUTPUT); digitalWrite(zone2Valve, LOW);
-  pinMode(zone3Valve, OUTPUT); digitalWrite(zone2Valve, LOW);
-  pinMode(zone4Valve, OUTPUT); digitalWrite(zone2Valve, LOW);
-  /*xoxopinMode(valve3, OUTPUT); digitalWrite(valve3, HIGH);
-    pinMode(valve4, OUTPUT); digitalWrite(valve4, HIGH);oxox*/
-  pinMode(waterLed, OUTPUT); digitalWrite(waterLed, LOW);
-  pinMode(sprayLed, OUTPUT); digitalWrite(sprayLed, LOW);
+  pinMode(zone1Valve, OUTPUT); digitalWrite(zone1Valve, HIGH);
+  pinMode(zone2Valve, OUTPUT); digitalWrite(zone2Valve, HIGH);
+  pinMode(zone3Valve, OUTPUT); digitalWrite(zone2Valve, HIGH);
+  pinMode(zone4Valve, OUTPUT); digitalWrite(zone2Valve, HIGH);
 
 #ifdef PHYBUTTON
   pinMode(zone1Button, INPUT_PULLUP);
   pinMode(zone2Button, INPUT_PULLUP);
   pinMode(zone3Button, INPUT_PULLUP);
   pinMode(zone4Button, INPUT_PULLUP);
-  //xoxo
-  pinMode(manualButton, INPUT_PULLUP);
-  //  pinMode(modeButton, INPUT_PULLUP);
-  //oxox
+
 #endif
 
   Serial.begin(115200);
@@ -126,6 +110,9 @@ void setup() {
 
   //init and get the time
   configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+  getTime();
+  
+  updateWeather();
 
   rtc.begin();
   //timer.setInterval(5000L, reconnectBlynk);  //30000
@@ -220,37 +207,37 @@ void checkValve() {
 
   //zone1 valve check
   if (zone1ValveStatus == 1) {
-    digitalWrite(zone1Valve, HIGH);
+    digitalWrite(zone1Valve, LOW);
     zone1BlynkLed.on();
   } else {
-    digitalWrite(zone1Valve, LOW);
+    digitalWrite(zone1Valve, HIGH);
     zone1BlynkLed.off();
   }
 
   //zone2 valve check
   if (zone2ValveStatus == 1) {
-    digitalWrite(zone2Valve, HIGH);
+    digitalWrite(zone2Valve, LOW);
     zone2BlynkLed.on();
   } else {
-    digitalWrite(zone2Valve, LOW);
+    digitalWrite(zone2Valve, HIGH);
     zone2BlynkLed.off();
   }
 
   //zone3 valve check
   if (zone3ValveStatus == 1) {
-    digitalWrite(zone3Valve, HIGH);
+    digitalWrite(zone3Valve, LOW);
     zone3BlynkLed.on();
   } else {
-    digitalWrite(zone3Valve, LOW);
+    digitalWrite(zone3Valve, HIGH);
     zone3BlynkLed.off();
   }
 
   //zone4 valve check
   if (zone4ValveStatus == 1) {
-    digitalWrite(zone4Valve, HIGH);
+    digitalWrite(zone4Valve, LOW);
     zone4BlynkLed.on();
   } else {
-    digitalWrite(zone4Valve, LOW);
+    digitalWrite(zone4Valve, HIGH);
     zone4BlynkLed.off();
   }
 
@@ -280,57 +267,57 @@ void openAllValve() {  //for close all valve
 void activeToday() {
   if (year() != 1970) {
     if (modeSelect == 3) {
-
-      if ((timer1Work == 1) || (timer1Work == 2) || (timer1Work == 3)) {
+      //0=off 1=zone1 2=zone2 3=zone3 4=zone4 5=all zone
+      if ((timer1Work == 1) || (timer1Work == 2) || (timer1Work == 3) || (timer1Work == 4) || (timer1Work == 5)) {
         Blynk.syncVirtual(Widget_TimerInput_1);
       } else if (timer1Work == 0) {
         timer1CloseAll();
         timer1On = 0;
       }
 
-      if ((timer2Work == 1) || (timer2Work == 2) || (timer2Work == 3)) {
+      if ((timer2Work == 1) || (timer2Work == 2) || (timer2Work == 3) || (timer2Work == 4) || (timer2Work == 5)) {
         Blynk.syncVirtual(Widget_TimerInput_2);
       } else if (timer2Work == 0) {
         timer2CloseAll();
         timer2On = 0;
       }
 
-      if ((timer3Work == 1) || (timer3Work == 2) || (timer3Work == 3)) {
+      if ((timer3Work == 1) || (timer3Work == 2) || (timer3Work == 3) || (timer3Work == 4) || (timer3Work == 5)) {
         Blynk.syncVirtual(Widget_TimerInput_3);
       } else if (timer3Work == 0) {
         timer3CloseAll();
         timer3On = 0;
       }
 
-      if ((timer4Work == 1) || (timer4Work == 2) || (timer4Work == 3)) {
+      if ((timer4Work == 1) || (timer4Work == 2) || (timer4Work == 3 || (timer4Work == 4) || (timer4Work == 5))) {
         Blynk.syncVirtual(Widget_TimerInput_4);
       } else if (timer4Work == 0) {
         timer4CloseAll();
         timer4On = 0;
       }
 
-      if ((timer5Work == 1) || (timer5Work == 2) || (timer5Work == 3)) {
+      if ((timer5Work == 1) || (timer5Work == 2) || (timer5Work == 3) || (timer5Work == 4) || (timer5Work == 5)) {
         Blynk.syncVirtual(Widget_TimerInput_5);
       } else if (timer5Work == 0) {
         timer5CloseAll();
         timer5On = 0;
       }
 
-      if ((timer6Work == 1) || (timer6Work == 2) || (timer6Work == 3)) {
+      if ((timer6Work == 1) || (timer6Work == 2) || (timer6Work == 3) || (timer6Work == 4) || (timer6Work == 5)) {
         Blynk.syncVirtual(Widget_TimerInput_6);
       } else if (timer6Work == 0) {
         timer6CloseAll();
         timer6On = 0;
       }
 
-      if ((timer7Work == 1) || (timer7Work == 2) || (timer7Work == 3)) {
+      if ((timer7Work == 1) || (timer7Work == 2) || (timer7Work == 3) || (timer7Work == 4) || (timer7Work == 5)) {
         Blynk.syncVirtual(Widget_TimerInput_7);
       } else if (timer7Work == 0) {
         timer7CloseAll();
         timer7On = 0;
       }
 
-      if ((timer8Work == 1) || (timer8Work == 2) || (timer8Work == 3)) {
+      if ((timer8Work == 1) || (timer8Work == 2) || (timer8Work == 3) || (timer8Work == 4) || (timer8Work == 5)) {
         Blynk.syncVirtual(Widget_TimerInput_8);
       } else if (timer8Work == 0) {
         timer8CloseAll();
