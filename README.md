@@ -1,7 +1,18 @@
 # Water Controll & Weather Station
 
+    แจกฟรี่!!! Source Code - ตู้ควบคุมน้ำ 4โซน 12VAC โซลินอยด์ วาล์ว เปิด-ปิด อัตโนมัติ ผ่านมือถือหรือกดที่หน้าตู้ แสดงสถานะอุณหภูมิ สภาพอากาศ
     
-
+    
+    ภาพที่เสร็จแล้ว
+    ภาพหน้าจอLCD    
+    ภาพการทำงานผ่านapp มือถือ
+    
+    Vdo สาธิต
+    
+เพื่อเป็นกำลังใจสามารถบริจาคเงิน ผ่านช่องทาง
+1. TrueWallet
+2. Paypal Donate
+3. Bitcoin Address
     
 
 
@@ -82,8 +93,22 @@ Tools
 
 Installation Steps
 
-/* Manual Control
-Mobile Control
-  Wiring Diagram
+/* 
+  Blynk Register
+  Open Weather Register  
+  Edit parameter
+        Wifi
+        Edit NTP Time Zone
+        Edit Weather parameter
+  Complie code & install to arduino board
+  Wiring Diagram  
+  Connect cable
+  
+  Moblie Application Setup
+  1.Install Blynk App
+  2.Login
+  3.Deploy layout
+  4.Start
+  5.Run & Test
   
 */
