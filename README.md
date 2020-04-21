@@ -64,6 +64,7 @@ Equipment Lists
       
 12. TFT LCD Screen 3.2 นิ้ว (1) 230 บาท (Optional)
       https://th.aliexpress.com/item/32960934541.html?spm=a2g0s.9042311.0.0.27424c4d8HFc1r
+      
       ![image](https://user-images.githubusercontent.com/45023260/79835814-8b834800-83d9-11ea-9e65-d23cb68b92e3.png)
       
 13. PCB Pin ตัวเมีย
