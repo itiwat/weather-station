@@ -12,11 +12,15 @@ Equipment Lists
     
 2. Relay 3V 4Channel      (1) 128 บาท
     https://shopee.co.th/product/117988183/2676926284
+    
     ![image](https://user-images.githubusercontent.com/45023260/79830751-4870a700-83d0-11ea-98da-fbcd80382301.png)
 
 
 3. Button Switch 12V 22mm     (4) 39 บาท/ตัว
     https://shopee.co.th/product/129139583/2693310504
+    ![image](https://user-images.githubusercontent.com/45023260/79830847-7950dc00-83d0-11ea-9894-2c1c5df8d657.png)
+    
+    
 4. Lamp LED 22mm           (4)  13 บาท/ตัว
     https://shopee.co.th/product/129139583/7112969459
 5. Power Source
