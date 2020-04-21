@@ -36,14 +36,14 @@ Equipment Lists
       
     Option#2: Power Supply (แนะนำ)
       - Power Supply 12V 5A 60W (1) 120 บาท
+      
       ![image](https://user-images.githubusercontent.com/45023260/79831343-6f7ba880-83d1-11ea-9802-6daa3b336ba5.png)
       
         
 6. สายไฟ
 7. Prototype PCB ฺBoard 9*15 (1) 40 บาท
       https://shopee.co.th/product/137614635/5409264485
-      
-![image](https://user-images.githubusercontent.com/45023260/79831519-c5e8e700-83d1-11ea-9897-d8a24a397505.png)
+      ![image](https://user-images.githubusercontent.com/45023260/79831519-c5e8e700-83d1-11ea-9897-d8a24a397505.png)
       
 8. สวิตซ์ 3 ตำแหน่ง (1) 35 บาท
       https://shopee.co.th/product/129139583/2443988662
