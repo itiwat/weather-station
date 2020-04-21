@@ -47,19 +47,26 @@ Equipment Lists
       
 8. สวิตซ์ 3 ตำแหน่ง (1) 35 บาท
       https://shopee.co.th/product/129139583/2443988662
+      ![image](https://user-images.githubusercontent.com/45023260/79833916-604b2980-83d6-11ea-859b-001cc1fabf9a.png)
+      
 9. Terminal Box 8P (2) 8 บาท/ตัว
       https://shopee.co.th/product/129139583/5516149203
-10. หางปลา แฉกหุ้ม SV2-4
-      https://shopee.co.th/product/129139583/6904612844
+      ![image](https://user-images.githubusercontent.com/45023260/79834040-97213f80-83d6-11ea-8e26-13409fd62446.png)
+      
+10. หางปลา แฉกหุ้ม
+      ![image](https://user-images.githubusercontent.com/45023260/79835604-2af40b00-83d9-11ea-899c-250e83e84650.png)
+      
 11. ตู้เหล็ก ธรรมดา เบอร์0 250x350x150  (1) 258 บาท
       https://shopee.co.th/product/74349884/1335588692
+      ![image](https://user-images.githubusercontent.com/45023260/79835747-6bec1f80-83d9-11ea-89e6-18075669f41c.png)
+      
 12. TFT LCD Screen 3.2 นิ้ว (1) 230 บาท (Optional)
       https://th.aliexpress.com/item/32960934541.html?spm=a2g0s.9042311.0.0.27424c4d8HFc1r
+      ![image](https://user-images.githubusercontent.com/45023260/79835814-8b834800-83d9-11ea-9e65-d23cb68b92e3.png)
+      
 13. PCB Pin ตัวเมีย
       https://th.aliexpress.com/item/32724478308.html?spm=a2g0s.9042311.0.0.27424c4d9Yzd3k
       ![image](https://user-images.githubusercontent.com/45023260/79547143-b578f980-80bd-11ea-8824-3844270ea216.png)
-      
-
       
 Tools
 
