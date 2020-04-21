@@ -8,6 +8,8 @@
 Equipment Lists
 1. Esp32                  (1) 120 บาท
     https://th.aliexpress.com/item/32864722159.html?spm=a2g0s.9042311.0.0.27424c4d9Yzd3k
+    ![image](https://user-images.githubusercontent.com/45023260/79830663-1bbc8f80-83d0-11ea-9492-b7a6209d60a1.png)
+    
 2. Relay 3V 4Channel      (1) 128 บาท
     https://shopee.co.th/product/117988183/2676926284
 3. Button Switch 12V 22mm     (4) 39 บาท/ตัว
