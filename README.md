@@ -51,9 +51,11 @@ Equipment Lists
       
 9. Terminal Box 8P (2) 8 บาท/ตัว
       https://shopee.co.th/product/129139583/5516149203
+      
       ![image](https://user-images.githubusercontent.com/45023260/79834040-97213f80-83d6-11ea-8e26-13409fd62446.png)
       
 10. หางปลา แฉกหุ้ม
+
       ![image](https://user-images.githubusercontent.com/45023260/79835604-2af40b00-83d9-11ea-899c-250e83e84650.png)
       
 11. ตู้เหล็ก ธรรมดา เบอร์0 250x350x150  (1) 258 บาท
