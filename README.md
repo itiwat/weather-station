@@ -1,6 +1,7 @@
 # Water Controll & Weather Station
 
     แจกฟรี่!!! Source Code - ตู้ควบคุมน้ำ 4โซน 12VAC โซลินอยด์ วาล์ว เปิด-ปิด อัตโนมัติ ผ่านมือถือหรือกดที่หน้าตู้ แสดงสถานะอุณหภูมิ สภาพอากาศ
+    ด้วยงบประมาณ 2000 บาท
     
     
     ภาพที่เสร็จแล้ว
@@ -9,14 +10,14 @@
     
     Vdo สาธิต
     
-เพื่อเป็นกำลังใจสามารถบริจาคเงิน ผ่านช่องทาง
+#### เพื่อเป็นกำลังใจสามารถบริจาคเงิน ผ่านช่องทาง
 1. TrueWallet
 2. Paypal Donate
 3. Bitcoin Address
     
 
 
-Equipment Lists
+## Equipment Lists
 1. Esp32                  (1) 120 บาท
     https://th.aliexpress.com/item/32864722159.html?spm=a2g0s.9042311.0.0.27424c4d9Yzd3k
     ![image](https://user-images.githubusercontent.com/45023260/79830663-1bbc8f80-83d0-11ea-9492-b7a6209d60a1.png)
@@ -82,7 +83,7 @@ Equipment Lists
       https://th.aliexpress.com/item/32724478308.html?spm=a2g0s.9042311.0.0.27424c4d9Yzd3k
       ![image](https://user-images.githubusercontent.com/45023260/79547143-b578f980-80bd-11ea-8824-3844270ea216.png)
       
-Tools
+##### Tools
 
     - คีมปลอกสายไฟ (1)  134 บาท
       https://shopee.co.th/product/37738200/1250808467
@@ -91,24 +92,21 @@ Tools
     - สว่าน
     
 
-Installation Steps
 
-/* 
-  Blynk Register
-  Open Weather Register  
-  Edit parameter
+## Installation Steps
+#### 1.Download Source Code
+#### 2.Blynk Register
+#### 3.Open Weather Register
+#### 4.Edit Source Code Parameter
         Wifi
         Edit NTP Time Zone
-        Edit Weather parameter
-  Complie code & install to arduino board
-  Wiring Diagram  
-  Connect cable
-  
-  Moblie Application Setup
-  1.Install Blynk App
-  2.Login
-  3.Deploy layout
-  4.Start
-  5.Run & Test
-  
-*/
+#### 5.Complie Source Code & Install to Arduino Board
+#### 5.Integrate Hardware
+        Wiring Diagram
+        Connect Cable
+#### 6.Moblie Application Setup (Optional)
+       Install Blynk App (If done: skip this step)
+       Login with registered user
+       Deploy layout
+       Start
+       Run & Test
