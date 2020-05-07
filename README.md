@@ -125,8 +125,13 @@ https://shopee.co.th/%E0%B9%80%E0%B8%9A%E0%B8%A3%E0%B8%81%E0%B9%80%E0%B8%81%E0%B
 2. Custom Server Settings
 3. Input Server:"blynk.iot-cm.com" Port:"9443"
 4. Fill your email & set up your password
+    - Then your auth token will be sent to your register email
             
 #### 4.Open Weather Register
+        - Open to this website "https://openweathermap.org/"
+        - Sign up
+        - After sing in, go to API keys tab
+![image](https://user-images.githubusercontent.com/45023260/81267643-ffc41980-9070-11ea-8169-473b51ffb319.png)
 #### 5.Edit Source Code Parameter
         Wifi
         Edit NTP Time Zone
