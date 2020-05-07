@@ -114,7 +114,18 @@ https://shopee.co.th/%E0%B9%80%E0%B8%9A%E0%B8%A3%E0%B8%81%E0%B9%80%E0%B8%81%E0%B
         - Download & Install the lasest Arduino IDE software via this link
         https://www.arduino.cc/en/Main/Software
 ![image](https://user-images.githubusercontent.com/45023260/81255794-d1d2db00-9058-11ea-908c-cf33c9d068b2.png)
-#### 3.Blynk Register
+#### 3.Install Blynk Moblie Application & Register
+        - If using IOS find application "Blynk" on App Store
+        - If using Android find application "Blynk" on Google Store
+![image](https://user-images.githubusercontent.com/45023260/81262941-f46cf000-9068-11ea-8df5-78fcd06fcc50.png)
+        - Register
+            - Create Own Account
+![image](https://user-images.githubusercontent.com/45023260/81265728-c4741b80-906d-11ea-86af-ef76868097eb.png)
+1. Click "Create New Account"
+2. Custom Server Settings
+3. Input Server:"blynk.iot-cm.com" Port:"9443"
+4. Fill your email & set up your password
+            
 #### 4.Open Weather Register
 #### 5.Edit Source Code Parameter
         Wifi
