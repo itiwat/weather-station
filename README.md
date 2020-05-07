@@ -85,6 +85,7 @@
       
 14. AC Breaker 2 Pole 16A   80 Bath
 https://shopee.co.th/%E0%B9%80%E0%B8%9A%E0%B8%A3%E0%B8%84%E0%B9%80%E0%B8%81%E0%B8%AD%E0%B8%A3%E0%B9%8C-AC-Breaker-%E0%B9%84%E0%B8%9F%E0%B8%9F%E0%B9%89%E0%B8%B2%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B9%81%E0%B8%AA%E0%B8%AA%E0%B8%A5%E0%B8%B1%E0%B8%9A1P-2P-3P-16A-32A-63A-circuit-breaker-i.44027329.7019724275
+![image](https://user-images.githubusercontent.com/45023260/81255358-a7345280-9057-11ea-9ebd-95801527f132.png)
 
 
 
