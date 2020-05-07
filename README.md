@@ -83,6 +83,17 @@
       https://th.aliexpress.com/item/32724478308.html?spm=a2g0s.9042311.0.0.27424c4d9Yzd3k
       ![image](https://user-images.githubusercontent.com/45023260/79547143-b578f980-80bd-11ea-8824-3844270ea216.png)
       
+14. AC Breaker 2 Pole 16A   80 Bath
+https://shopee.co.th/%E0%B9%80%E0%B8%9A%E0%B8%A3%E0%B8%84%E0%B9%80%E0%B8%81%E0%B8%AD%E0%B8%A3%E0%B9%8C-AC-Breaker-%E0%B9%84%E0%B8%9F%E0%B8%9F%E0%B9%89%E0%B8%B2%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B9%81%E0%B8%AA%E0%B8%AA%E0%B8%A5%E0%B8%B1%E0%B8%9A1P-2P-3P-16A-32A-63A-circuit-breaker-i.44027329.7019724275
+
+
+
+      
+15. DC Breaker 2 Pole 6A    130 Bath
+https://shopee.co.th/%E0%B9%80%E0%B8%9A%E0%B8%A3%E0%B8%81%E0%B9%80%E0%B8%81%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%94%E0%B8%B5%E0%B8%8B%E0%B8%B5-%E0%B9%80%E0%B8%9A%E0%B8%A3%E0%B8%81%E0%B9%80%E0%B8%81%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B9%81%E0%B8%AA%E0%B8%95%E0%B8%A3%E0%B8%87-DC-breaker-1Pole-2Pole-400V-%E0%B8%82%E0%B8%99%E0%B8%B2%E0%B8%94-6A-10A-16A-20A-25A-32A-40A-50A-63A-i.98346870.2705821905
+![image](https://user-images.githubusercontent.com/45023260/81255216-53c20480-9057-11ea-8d15-4c340c27afa7.png)
+
+
 ##### Tools
 
     - คีมปลอกสายไฟ (1)  134 บาท
