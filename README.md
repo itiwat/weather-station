@@ -107,16 +107,22 @@ https://shopee.co.th/%E0%B9%80%E0%B8%9A%E0%B8%A3%E0%B8%81%E0%B9%80%E0%B8%81%E0%B
 
 ## Installation Steps
 #### 1.Download Source Code
-#### 2.Blynk Register
-#### 3.Open Weather Register
-#### 4.Edit Source Code Parameter
+        - Download Source Code files from github
+        - Extract files into folder
+#### 2.Download & Install Arduino IDE
+        - Click this link then download & install the lasest Arduino IDE software
+        https://www.arduino.cc/en/Main/Software
+        ![image](https://user-images.githubusercontent.com/45023260/81255794-d1d2db00-9058-11ea-908c-cf33c9d068b2.png)
+#### 3.Blynk Register
+#### 4.Open Weather Register
+#### 5.Edit Source Code Parameter
         Wifi
         Edit NTP Time Zone
-#### 5.Complie Source Code & Install to Arduino Board
-#### 5.Integrate Hardware
+#### 6.Complie Source Code & Install to Arduino Board
+#### 7.Integrate Hardware
         Wiring Diagram
         Connect Cable
-#### 6.Moblie Application Setup (Optional)
+#### 8.Moblie Application Setup (Optional)
        Install Blynk App (If done: skip this step)
        Login with registered user
        Deploy layout
