@@ -156,6 +156,9 @@ input your Blynk api key
 ![image](https://user-images.githubusercontent.com/45023260/81366985-3011c380-9116-11ea-95ea-8ab7767afdbe.png)
 
 ##### Openweather
+- input your openweather api key
+- input your weather-station latitude & longitude
+![image](https://user-images.githubusercontent.com/45023260/81367457-7fa4bf00-9117-11ea-84a6-ba77622ac40c.png)
 
 #### 6.Complie Source Code & Install to Arduino Board
 #### 7.Integrate Hardware
