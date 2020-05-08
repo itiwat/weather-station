@@ -133,17 +133,18 @@ https://shopee.co.th/%E0%B9%80%E0%B8%9A%E0%B8%A3%E0%B8%81%E0%B9%80%E0%B8%81%E0%B
         - After sing in, go to API keys tab
 ![image](https://user-images.githubusercontent.com/45023260/81267643-ffc41980-9070-11ea-8169-473b51ffb319.png)
 #### 5.Edit Source Code Parameter
-        Wifi Parameter
+##### Wifi Parameter
 - Open File "weather-station/main/config.h
 - Change ssid & pass to your wifi
 ![image](https://user-images.githubusercontent.com/45023260/81363853-7d8a3280-910e-11ea-9fe4-d35d06f61b36.png)
 
-        Tftlcd
-- Open File "weather-station/main/config.h
+##### Tftlcd
 - If you want to use Tftlcd keep it default. But if you don't want to use Tftlcd, you must comment code.
 ![image](https://user-images.githubusercontent.com/45023260/81364163-36507180-910f-11ea-970f-bbe4ab25154f.png)
 
-        Edit NTP Time Zone
+##### Edit NTP Time Zone
+##### Openweather
+##### Blynk
 #### 6.Complie Source Code & Install to Arduino Board
 #### 7.Integrate Hardware
         Wiring Diagram
