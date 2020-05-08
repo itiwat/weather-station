@@ -149,6 +149,12 @@ https://shopee.co.th/%E0%B9%80%E0%B8%9A%E0%B8%A3%E0%B8%81%E0%B9%80%E0%B8%81%E0%B
 - If your location is not asia, you can adjust parameter following by this reference "https://www.ntppool.org/en/"
 
 ##### Blynk
+#define BLYNKLOCAL
+![image](https://user-images.githubusercontent.com/45023260/81366674-7155a380-9115-11ea-9820-89daf6bdbd89.png)
+
+input your Blynk api key
+![image](https://user-images.githubusercontent.com/45023260/81366985-3011c380-9116-11ea-95ea-8ab7767afdbe.png)
+
 ##### Openweather
 
 #### 6.Complie Source Code & Install to Arduino Board
