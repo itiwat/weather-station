@@ -143,8 +143,14 @@ https://shopee.co.th/%E0%B9%80%E0%B8%9A%E0%B8%A3%E0%B8%81%E0%B9%80%E0%B8%81%E0%B
 ![image](https://user-images.githubusercontent.com/45023260/81364163-36507180-910f-11ea-970f-bbe4ab25154f.png)
 
 ##### Edit NTP Time Zone
-##### Openweather
+- If your location stay at asia keep parameter as default
+![image](https://user-images.githubusercontent.com/45023260/81365097-70bb0e00-9111-11ea-8574-e41550863982.png)
+
+- If your location is not asia, you can adjust parameter following by this reference "https://www.ntppool.org/en/"
+
 ##### Blynk
+##### Openweather
+
 #### 6.Complie Source Code & Install to Arduino Board
 #### 7.Integrate Hardware
         Wiring Diagram
