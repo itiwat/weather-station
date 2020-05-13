@@ -174,6 +174,6 @@ When finnish step#5 complie source code by Arduino IDE software then upload comp
 #### 8.Moblie Application Setup (Optional)
        Install Blynk App (If done: skip this step)
        Login with registered user
-       Deploy layout
+       Scan QR Code
        Start
        Run & Test
