@@ -91,11 +91,7 @@ https://shopee.co.th/product/44027329/7019724275
 https://shopee.co.th/product/129139583/2819545657
 ![image](https://user-images.githubusercontent.com/45023260/81781796-f3353a80-9522-11ea-9754-77024efe0832.png)
       
-16. DC Breaker 2 Pole 6A    130 Bath
-https://shopee.co.th/product/98346870/2705821905
-![image](https://user-images.githubusercontent.com/45023260/81255216-53c20480-9057-11ea-8d15-4c340c27afa7.png)
-
-17. รางปีกนก ยาว 10 CM
+16. รางปีกนก ยาว 10 CM
 https://shopee.co.th/product/129139583/2801392100
 ![image](https://user-images.githubusercontent.com/45023260/81782825-99ce0b00-9524-11ea-9958-2b67610ac24e.png)
 
