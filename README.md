@@ -95,6 +95,8 @@ https://shopee.co.th/product/129139583/2819545657
 https://shopee.co.th/product/129139583/2801392100
 ![image](https://user-images.githubusercontent.com/45023260/81782825-99ce0b00-9524-11ea-9958-2b67610ac24e.png)
 
+17. Solenoid vave
+![image](https://user-images.githubusercontent.com/45023260/81782825-99ce0b00-9524-11ea-9958-2b67610ac24e.png)
 ##### Tools
 
     - คีมปลอกสายไฟ (1)  134 บาท
