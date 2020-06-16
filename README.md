@@ -95,7 +95,8 @@ https://shopee.co.th/product/129139583/2819545657
 https://shopee.co.th/product/129139583/2801392100
 ![image](https://user-images.githubusercontent.com/45023260/81782825-99ce0b00-9524-11ea-9958-2b67610ac24e.png)
 
-17. Solenoid vave
+17. Solenoid Valve]
+
 ![image](https://user-images.githubusercontent.com/45023260/84752110-89a7c080-afe7-11ea-94a1-99740b29832c.png)
 ##### Tools
 
