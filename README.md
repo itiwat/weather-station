@@ -1,14 +1,24 @@
 # Water Controll & Weather Station
 
     แจกฟรี่!!! Source Code - ตู้ควบคุมน้ำ 4โซน 12VAC โซลินอยด์ วาล์ว เปิด-ปิด อัตโนมัติ ผ่านมือถือหรือกดที่หน้าตู้ แสดงสถานะอุณหภูมิ สภาพอากาศ
-    ด้วยงบประมาณ 2000 บาท
+    ด้วยงบประมาณ 2500 บาท
+    
+#### ควบคุมผ่านหน้าตู้    
+    ![image](https://user-images.githubusercontent.com/45023260/85194999-35f3ea80-b2f9-11ea-8e36-ef933f275885.jpg)
+    
+    ![image](https://user-images.githubusercontent.com/45023260/85195033-718eb480-b2f9-11ea-97f6-b44b08f0f77e.jpg)
+    
+    ![image](https://user-images.githubusercontent.com/45023260/85195054-95ea9100-b2f9-11ea-84ea-e800943eb9bd.jpg)
+    
+#### ควบคุมผ่านมือถือ
+
+xxxxx
     
     
-    ภาพที่เสร็จแล้ว
-    ภาพหน้าจอLCD    
-    ภาพการทำงานผ่านapp มือถือ
-    
-    Vdo สาธิต
+ 
+#### Demo VDO
+
+xxxxxx
     
 #### เพื่อเป็นกำลังใจสามารถบริจาคเงิน ผ่านช่องทาง
 1. TrueWallet
@@ -96,6 +106,7 @@ https://shopee.co.th/product/129139583/2801392100
 ![image](https://user-images.githubusercontent.com/45023260/81782825-99ce0b00-9524-11ea-9958-2b67610ac24e.png)
 
 17. Solenoid Valve 12V DC ขนาด 3/4 370Bath
+
 https://www.lazada.co.th//products/i342828145-s1270160743.html?spm=a2o4m.cart.0.0.67e36108TTw68Z&urlFlag=true
 
 ![image](https://user-images.githubusercontent.com/45023260/84752110-89a7c080-afe7-11ea-94a1-99740b29832c.png)
