@@ -196,10 +196,11 @@ input your Blynk api key
 When finnish step#5 complie source code by Arduino IDE software then upload complied code to your arduino Board
 
 #### 7.Integrate Hardware
-        Wiring Diagram
-        Connect Cable
+        Wiring Diagram & Connect Cable
         
-        ### Coming Soon ###
+![image](https://user-images.githubusercontent.com/45023260/85197711-f636fe00-b30c-11ea-88a4-095f6db4d097.png)
+
+![image](https://user-images.githubusercontent.com/45023260/85197727-1a92da80-b30d-11ea-884a-cbffbda701e8.png)
         
 #### 8.Moblie Application Setup (Optional)
        Install Blynk App (If done: skip this step)
