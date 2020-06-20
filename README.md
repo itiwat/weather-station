@@ -95,7 +95,8 @@ https://shopee.co.th/product/129139583/2819545657
 https://shopee.co.th/product/129139583/2801392100
 ![image](https://user-images.githubusercontent.com/45023260/81782825-99ce0b00-9524-11ea-9958-2b67610ac24e.png)
 
-17. Solenoid Valve
+17. Solenoid Valve 12V DC ขนาด 3/4 370Bath
+https://www.lazada.co.th//products/i342828145-s1270160743.html?spm=a2o4m.cart.0.0.67e36108TTw68Z&urlFlag=true
 
 ![image](https://user-images.githubusercontent.com/45023260/84752110-89a7c080-afe7-11ea-94a1-99740b29832c.png)
 ##### Tools
