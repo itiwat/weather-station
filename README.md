@@ -28,7 +28,7 @@
     ![image](https://user-images.githubusercontent.com/45023260/79830751-4870a700-83d0-11ea-98da-fbcd80382301.png)
 
 
-3. Button Switch 12V 22mm     (4) 39 Bath/Piece
+3. Button Switch 12V 22mm     (4) 29 Bath/Piece
     https://shopee.co.th/product/129139583/2693310504
     ![image](https://user-images.githubusercontent.com/45023260/79830847-7950dc00-83d0-11ea-9894-2c1c5df8d657.png)
     
