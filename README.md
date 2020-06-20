@@ -123,6 +123,13 @@ https://shopee.co.th/product/129139583/2801392100
 https://www.lazada.co.th//products/i342828145-s1270160743.html?spm=a2o4m.cart.0.0.67e36108TTw68Z&urlFlag=true
 
 ![image](https://user-images.githubusercontent.com/45023260/84752110-89a7c080-afe7-11ea-94a1-99740b29832c.png)
+
+17. XL4015 DC-DC Buck Converter Adjustable Step-Down Module 63Bath
+
+https://shopee.co.th/product/57748591/1816554220
+
+![image](https://user-images.githubusercontent.com/45023260/85197920-95102a00-b30e-11ea-8904-6d211dbc94ca.png)
+
 ##### Tools
 
     - คีมปลอกสายไฟ (1)  134 บาท
