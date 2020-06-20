@@ -199,6 +199,12 @@ When finnish step#5 complie source code by Arduino IDE software then upload comp
 https://user-images.githubusercontent.com/45023260/85197711-f636fe00-b30c-11ea-88a4-095f6db4d097.png
 
 ![image](https://user-images.githubusercontent.com/45023260/85197727-1a92da80-b30d-11ea-884a-cbffbda701e8.png)
+
+![image](https://user-images.githubusercontent.com/45023260/85197819-bcb2c280-b30d-11ea-9811-4960a8676347.jpg)
+
+![image](https://user-images.githubusercontent.com/45023260/85197834-e4a22600-b30d-11ea-8bd3-5351ef45da85.jpg)
+
+![image](https://user-images.githubusercontent.com/45023260/85197847-fc79aa00-b30d-11ea-8f7d-86ae742500b1.jpg)
         
 #### 8.Moblie Application Setup (Optional)
        Install Blynk App (If done: skip this step)
