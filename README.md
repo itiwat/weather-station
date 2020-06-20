@@ -113,16 +113,12 @@ xxxxxx
 14. AC Breaker 2 Pole 16A   80 Bath
 https://shopee.co.th/product/44027329/7019724275
 ![image](https://user-images.githubusercontent.com/45023260/81255358-a7345280-9057-11ea-9ebd-95801527f132.png)
-
-15. AC Surge Protection     160 Bath
-https://shopee.co.th/product/129139583/2819545657
-![image](https://user-images.githubusercontent.com/45023260/81781796-f3353a80-9522-11ea-9754-77024efe0832.png)
-      
-16. รางปีกนก ยาว 10 CM
+    
+15. รางปีกนก ยาว 10 CM
 https://shopee.co.th/product/129139583/2801392100
 ![image](https://user-images.githubusercontent.com/45023260/81782825-99ce0b00-9524-11ea-9958-2b67610ac24e.png)
 
-17. Solenoid Valve 12V DC ขนาด 3/4 370Bath
+16. Solenoid Valve 12V DC ขนาด 3/4 370Bath
 
 https://www.lazada.co.th//products/i342828145-s1270160743.html?spm=a2o4m.cart.0.0.67e36108TTw68Z&urlFlag=true
 
