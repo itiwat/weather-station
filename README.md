@@ -4,7 +4,7 @@
     ด้วยงบประมาณ 2500 บาท
     
 #### ควบคุมผ่านหน้าตู้    
-![image](https://user-images.githubusercontent.com/45023260/85194999-35f3ea80-b2f9-11ea-8e36-ef933f275885.jpg)
+![image](https://user-images.githubusercontent.com/45023260/85195593-0bf0f700-b2fe-11ea-8aab-a24b979115f3.png)
     
 ![image](https://user-images.githubusercontent.com/45023260/85195033-718eb480-b2f9-11ea-97f6-b44b08f0f77e.jpg)
     
