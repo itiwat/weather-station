@@ -236,8 +236,9 @@ Install Breaker, Power Supply, Relay Switch, and Arduino Board
 #### 8.Moblie Application Setup (Optional)
        Install Blynk App (If done: skip this step)
        Login with registered user
-       Scan QR Code
+       Scan QR Code to clone gui interface of mobile app
+       
+       ![image](https://user-images.githubusercontent.com/45023260/86737040-2c3ee680-c05e-11ea-8df3-bab6ae6fa0df.PNG)
+       
        Start
        Run & Test
-        
-       ### Coming Soon ###
