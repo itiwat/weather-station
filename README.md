@@ -1,7 +1,7 @@
 # Water Controll & Weather Station
 
-    แจกฟรี!!! Source Code - ตู้ควบคุมน้ำ 4โซน 12VAC โซลินอยด์ วาล์ว เปิด-ปิด อัตโนมัติ ผ่านมือถือหรือกดที่หน้าตู้ แสดงสถานะอุณหภูมิ สภาพอากาศ
-    ด้วยงบประมาณ 2500 บาท
+# แจกฟรี!!! Source Code - ตู้ควบคุมน้ำ 4โซน 12VAC โซลินอยด์ วาล์ว เปิด-ปิด อัตโนมัติ ผ่านมือถือหรือกดที่หน้าตู้ แสดงสถานะอุณหภูมิ สภาพอากาศ
+ด้วยงบประมาณ 2500 บาท
     
 #### ควบคุมผ่านหน้าตู้    
 ![image](https://user-images.githubusercontent.com/45023260/85195593-0bf0f700-b2fe-11ea-8aab-a24b979115f3.png)
@@ -210,11 +210,11 @@ When finnish step#5 complie source code by Arduino IDE software then upload comp
 
 https://user-images.githubusercontent.com/45023260/85197711-f636fe00-b30c-11ea-88a4-095f6db4d097.png
 
+![image](https://user-images.githubusercontent.com/45023260/85197727-1a92da80-b30d-11ea-884a-cbffbda701e8.png)
+
 Drill hole & insert led, button switch and selector switch
 
 ![image](https://user-images.githubusercontent.com/45023260/86733498-72df1180-c05b-11ea-8a7b-45fe48063dd6.jpg)
-
-![image](https://user-images.githubusercontent.com/45023260/85197727-1a92da80-b30d-11ea-884a-cbffbda701e8.png)
 
 ![image](https://user-images.githubusercontent.com/45023260/85197819-bcb2c280-b30d-11ea-9811-4960a8676347.jpg)
 
